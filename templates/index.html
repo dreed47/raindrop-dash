@@ -184,7 +184,10 @@
         scrollbar-color: var(--border) transparent;
       }
 
-      .sidebar-collections { flex: 1; overflow-y: auto; }
+      .sidebar-collections {
+        flex: 1;
+        overflow-y: auto;
+      }
 
       .sidebar-footer {
         padding: 12px 16px;
@@ -201,7 +204,9 @@
         text-decoration: none;
         transition: color 0.15s;
       }
-      .sidebar-footer a:hover { color: var(--text); }
+      .sidebar-footer a:hover {
+        color: var(--text);
+      }
 
       /* --- Sidebar label --- */
       .sidebar-label {
@@ -1083,7 +1088,11 @@
       function fmtDate(iso) {
         if (!iso) return "";
         const d = new Date(iso);
-        return d.toLocaleDateString("en-US", { month: "short", day: "numeric", year: "numeric" });
+        return d.toLocaleDateString("en-US", {
+          month: "short",
+          day: "numeric",
+          year: "numeric",
+        });
       }
 
       const HL_COLORS = {
