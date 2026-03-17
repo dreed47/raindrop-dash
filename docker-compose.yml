@@ -1,0 +1,11 @@
+services:
+  raindrop-dash:
+    build: .
+    container_name: raindrop-dash
+    restart: unless-stopped
+    ports:
+      - "8080:8080"
+    environment:
+      - RAINDROP_TOKEN=${RAINDROP_TOKEN}
+      - CACHE_TTL=${CACHE_TTL:-3600}
+      - PORT=${PORT:-8080}

@@ -1,0 +1,9 @@
+{
+  "manifest_version": 3,
+  "name": "Raindrop.io New Tab",
+  "version": "1.0",
+  "description": "Redirects new tab to Raindrop.io",
+  "chrome_url_overrides": {
+    "newtab": "index.html"
+  }
+}
