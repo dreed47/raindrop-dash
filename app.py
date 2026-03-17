@@ -38,7 +38,7 @@ def fetch_raindrops(collection_id, page=0, per_page=50):
         r = requests.get(
             f"{API_BASE}/raindrops/{collection_id}",
             headers=headers(),
-            params={"page": page, "perpage": per_page, "sort": "created"},
+            params={"page": page, "perpage": per_page, "sort": "sort"},
             timeout=15,
         )
         r.raise_for_status()
@@ -81,6 +81,12 @@ def fetch_all():
                         "tags": rd.get("tags", []),
                         "created": rd.get("created", ""),
                         "type": rd.get("type", "link"),
+                        "important": rd.get("important", False),
+                        "note": rd.get("note", ""),
+                        "highlights": [
+                            h.get("color", "yellow")
+                            for h in rd.get("highlights", [])
+                        ],
                     }
                     for rd in raindrops
                 ],
@@ -107,6 +113,12 @@ def fetch_all():
                         "tags": rd.get("tags", []),
                         "created": rd.get("created", ""),
                         "type": rd.get("type", "link"),
+                        "important": rd.get("important", False),
+                        "note": rd.get("note", ""),
+                        "highlights": [
+                            h.get("color", "yellow")
+                            for h in rd.get("highlights", [])
+                        ],
                     }
                     for rd in unsorted
                 ],
