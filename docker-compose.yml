@@ -11,11 +11,11 @@ services:
       - PORT=${PORT:-8080}
 
     healthcheck:
-      test: ["CMD", "curl", "-f", "http://localhost:8080/"]
+      test: ["CMD", "curl", "-f", "http://localhost:${PORT:-8080}/"]
       interval: 30s
       timeout: 5s
       retries: 3
-      start_period: 10s
+      start_period: 15s
     logging:
       driver: json-file
       options:
