@@ -3,8 +3,8 @@
   "short_name": "Bookmarks",
   "start_url": "/",
   "display": "standalone",
-  "background_color": "#0e1117",
-  "theme_color": "#0e1117",
+  "background_color": "#1a1e2e",
+  "theme_color": "#1a1e2e",
   "icons": [
     {
       "src": "https://www.google.com/s2/favicons?domain=raindrop.io&sz=192",
