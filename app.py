@@ -179,6 +179,8 @@ def api_add():
             payload["collection"] = {"$id": int(collection_id)}
         except (ValueError, TypeError):
             pass
+    if "important" in body:
+        payload["important"] = bool(body["important"])
 
     r = requests.post(
         f"{API_BASE}/raindrop",
@@ -237,6 +239,8 @@ def api_edit(raindrop_id):
             payload["collection"] = {"$id": -1}
     if "note" in body:
         payload["note"] = body["note"]
+    if "important" in body:
+        payload["important"] = bool(body["important"])
     if not payload:
         return jsonify({"ok": False, "error": "nothing to update"}), 400
     r = requests.put(

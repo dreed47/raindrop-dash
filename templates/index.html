@@ -745,6 +745,24 @@
         cursor: not-allowed;
       }
 
+      .fav-label {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        flex-direction: row;
+        font-weight: 500;
+        color: #e3b341;
+        cursor: pointer;
+        margin-top: 2px;
+      }
+      .fav-label input[type="checkbox"] {
+        width: 16px;
+        height: 16px;
+        accent-color: #e3b341;
+        cursor: pointer;
+        flex-shrink: 0;
+      }
+
       .modal-error {
         font-size: 0.85rem;
         color: #f85149;
@@ -934,6 +952,10 @@
             style="resize: vertical"
           ></textarea>
         </label>
+        <label class="fav-label">
+          <input type="checkbox" id="editImportant" />
+          <span>&#9829; Mark as Favorite</span>
+        </label>
         <div class="modal-error" id="editError"></div>
         <div class="modal-actions">
           <button class="btn" onclick="closeEditModal()">Cancel</button>
@@ -978,6 +1000,10 @@
           >Tags
           <span style="font-weight: 400">(optional, comma-separated)</span>
           <input type="text" id="addTags" placeholder="tag1, tag2" />
+        </label>
+        <label class="fav-label">
+          <input type="checkbox" id="addImportant" />
+          <span>&#9829; Mark as Favorite</span>
         </label>
         <div class="modal-error" id="addError"></div>
         <div class="modal-actions">
@@ -1028,6 +1054,7 @@
       let TREE = [];
       let activeCollection = null;
       let activeTag = null;
+      let activeFavorites = false;
       let expandedCollections = new Set();
       const COLORS = [
         "#58a6ff",
@@ -1173,10 +1200,21 @@
       function renderSidebar() {
         // Collections section
         let html = '<div class="sidebar-label">Collections</div>';
-        html += `<div class="coll-item ${activeCollection === null && !activeTag ? "active" : ""}" onclick="filterCollection(null)">
+        const totalAll = DATA.reduce((s, c) => s + c.bookmarks.length, 0);
+        const totalFavs = [
+          ...new Map(
+            DATA.flatMap((c) => c.bookmarks).map((b) => [b.id, b]),
+          ).values(),
+        ].filter((b) => b.important).length;
+        html += `<div class="coll-item ${activeCollection === null && !activeTag && !activeFavorites ? "active" : ""}" onclick="filterCollection(null)">
       <div class="coll-dot" style="background:#8b949e"></div>
       <span class="coll-name">All</span>
-      <span class="coll-count">${DATA.reduce((s, c) => s + c.bookmarks.length, 0)}</span>
+      <span class="coll-count">${totalAll}</span>
+    </div>`;
+        html += `<div class="coll-item ${activeFavorites ? "active" : ""}" onclick="filterFavorites()">
+      <div class="coll-dot" style="background:#e3b341"></div>
+      <span class="coll-name">&#9829; Favorites</span>
+      <span class="coll-count">${totalFavs}</span>
     </div>`;
         TREE.forEach((node, i) => {
           html += renderCollItem(node, 0, i);
@@ -1223,6 +1261,9 @@
         let total = 0;
         filtered.forEach((coll) => {
           let bms = coll.bookmarks;
+          if (activeFavorites) {
+            bms = bms.filter((b) => b.important);
+          }
           if (activeTag) {
             bms = bms.filter((b) => b.tags.includes(activeTag));
           }
@@ -1268,7 +1309,21 @@
         main.innerHTML = html;
       }
 
+      function filterFavorites() {
+        activeFavorites = true;
+        activeCollection = null;
+        activeTag = null;
+        document.getElementById("tagFilterBar").classList.remove("visible");
+        localStorage.setItem("activeCollection", "null");
+        document.title = "Bookmarks";
+        closeDrawer();
+        renderSidebar();
+        renderMain();
+        window.scrollTo({ top: 0, behavior: "smooth" });
+      }
+
       function filterCollection(id) {
+        activeFavorites = false;
         activeTag = null;
         document.getElementById("tagFilterBar").classList.remove("visible");
         activeCollection = id;
@@ -1287,6 +1342,7 @@
           return;
         }
         activeTag = tag;
+        activeFavorites = false;
         // Always search across all collections so count matches sidebar
         activeCollection = null;
         localStorage.setItem("activeCollection", "null");
@@ -1300,6 +1356,7 @@
 
       function clearTagFilter() {
         activeTag = null;
+        activeFavorites = false;
         document.getElementById("tagFilterBar").classList.remove("visible");
         renderSidebar();
         renderMain();
@@ -1412,6 +1469,7 @@
         document.getElementById("editTitle").value = bm.title || "";
         document.getElementById("editTags").value = (bm.tags || []).join(", ");
         document.getElementById("editNote").value = bm.note || "";
+        document.getElementById("editImportant").checked = !!bm.important;
         document.getElementById("editError").className = "modal-error";
         document.getElementById("editSaveBtn").disabled = false;
         document.getElementById("editSaveBtn").textContent = "Save";
@@ -1445,6 +1503,7 @@
             title: document.getElementById("editTitle").value.trim(),
             tags: document.getElementById("editTags").value,
             note: document.getElementById("editNote").value.trim(),
+            important: document.getElementById("editImportant").checked,
           };
           // Only send collection_id if it actually changed — sending it unconditionally
           // causes Raindrop to reset the bookmark's sort position to the top.
@@ -1501,6 +1560,7 @@
         document.getElementById("addUrl").value = "";
         document.getElementById("addTitle").value = "";
         document.getElementById("addTags").value = "";
+        document.getElementById("addImportant").checked = false;
         document.getElementById("addError").className = "modal-error";
         document.getElementById("addSaveBtn").disabled = false;
         document.getElementById("addModal").classList.add("open");
@@ -1535,6 +1595,7 @@
               tags: document.getElementById("addTags").value,
               collection_id:
                 document.getElementById("addCollection").value || null,
+              important: document.getElementById("addImportant").checked,
             }),
           });
           const j = await r.json();
