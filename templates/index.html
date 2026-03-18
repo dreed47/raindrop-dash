@@ -517,28 +517,36 @@
         font-style: italic;
       }
 
+      /* === BM-META (parent container) === */
       .bm-meta {
-        display: flex;
-        align-items: center;
-        gap: 6px;
-        margin-top: 6px;
-        flex-wrap: wrap;
+        display: flex !important;
+        align-items: center !important;
+        gap: 6px !important;
+        margin-top: 6px !important;
+        flex-wrap: nowrap !important;
+        line-height: 1 !important;
       }
 
+      /* === BM-HIGHLIGHTS (the row) === */
       .bm-highlights {
         display: flex;
-        gap: 3px;
         align-items: center;
+        gap: 3px;
+        flex-shrink: 0;
+        font-size: 0;
       }
 
+      /* === BM-HL (the actual dots) === */
       .bm-hl {
         display: inline-block;
         width: 10px;
-        height: 10px;
-        border-radius: 50%;
-        flex-shrink: 0;
+        aspect-ratio: 1 / 1;
+        border-radius: 999px;
+        background: var(--hl-color, #8b949e);
+        flex: 0 0 10px;
+        line-height: 0;
+        box-sizing: border-box;
       }
-
       .bm-important {
         color: #f85149;
         font-size: 0.9rem;
@@ -1298,7 +1306,7 @@
             ${b.excerpt ? `<div class="bm-excerpt">${esc(b.excerpt)}</div>` : ""}
             ${b.note ? `<div class="bm-note">${esc(b.note)}</div>` : ""}
             ${b.tags.length ? `<div class="bm-tags">${b.tags.map((t) => `<span class="bm-tag${activeTag === t ? " active-tag" : ""}" data-tag="${esc(t)}">${esc(t)}</span>`).join("")}</div>` : ""}
-            ${(b.highlights && b.highlights.length) || b.created ? `<div class="bm-meta">${b.highlights && b.highlights.length ? `<div class="bm-highlights">${b.highlights.map((c) => `<span class="bm-hl" style="background:${hlColor(c)}"></span>`).join("")}</div>` : ""}${b.created ? `<span class="bm-date">${fmtDate(b.created)}</span>` : ""}</div>` : ""}
+            ${(b.highlights && b.highlights.length) || b.created ? `<div class="bm-meta">${b.highlights && b.highlights.length ? `<div class="bm-highlights">${b.highlights.map((c) => `<span class="bm-hl" style="--hl-color:${hlColor(c)}"></span>`).join("")}</div>` : ""}${b.created ? `<span class="bm-date">${fmtDate(b.created)}</span>` : ""}</div>` : ""}
           </div>
         </a>`;
           });
