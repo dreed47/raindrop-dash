@@ -1188,8 +1188,9 @@
           renderSidebar();
           renderMain();
           updateStats();
+          showToast("Bookmarks refreshed");
         } catch (e) {
-          alert("Refresh failed: " + e.message);
+          showToast("Refresh failed: " + e.message, "error");
         } finally {
           btn.classList.remove("spinning");
         }

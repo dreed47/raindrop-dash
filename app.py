@@ -1,6 +1,7 @@
 import json
 import os
 import time
+import threading
 import requests
 from flask import Flask, render_template, jsonify, request
 
@@ -11,6 +12,7 @@ CACHE_TTL = int(os.environ.get("CACHE_TTL", 3600))  # seconds, default 1 hour
 API_BASE = "https://api.raindrop.io/rest/v1"
 REDIS_URL = os.environ.get("REDIS_URL", "redis://redis:6379/0")
 CACHE_KEY = "raindrop_data"
+CACHE_TS_KEY = "raindrop_data_ts"
 
 # --- Redis client (optional — falls back to in-memory if unavailable) ---
 _redis = None
@@ -24,38 +26,69 @@ except Exception:
 # In-memory fallback
 _mem_cache = {"data": None, "ts": 0}
 
+# Prevent concurrent background revalidations
+_revalidating = False
+_revalidate_lock = threading.Lock()
 
-def _cache_get():
+
+def _cache_get_with_age():
+    """Return (data, age_seconds) from cache. data=None if nothing cached."""
     if _redis:
         try:
             raw = _redis.get(CACHE_KEY)
+            ts_raw = _redis.get(CACHE_TS_KEY)
             if raw:
-                return json.loads(raw)
+                age = time.time() - float(ts_raw) if ts_raw else CACHE_TTL + 1
+                return json.loads(raw), age
         except Exception:
             pass
-    if _mem_cache["data"] and (time.time() - _mem_cache["ts"]) < CACHE_TTL:
-        return _mem_cache["data"]
+    if _mem_cache["data"]:
+        return _mem_cache["data"], time.time() - _mem_cache["ts"]
+    return None, None
+
+
+def _cache_get():
+    data, age = _cache_get_with_age()
+    if data is not None and age is not None and age < CACHE_TTL:
+        return data
     return None
 
 
 def _cache_set(data):
+    now = time.time()
     if _redis:
         try:
-            _redis.setex(CACHE_KEY, CACHE_TTL, json.dumps(data))
+            # Store data with 2× TTL so stale data survives for SWR
+            _redis.setex(CACHE_KEY, CACHE_TTL * 2, json.dumps(data))
+            _redis.setex(CACHE_TS_KEY, CACHE_TTL * 2, str(now))
         except Exception:
             pass
     _mem_cache["data"] = data
-    _mem_cache["ts"] = time.time()
+    _mem_cache["ts"] = now
 
 
 def _cache_bust():
     if _redis:
         try:
             _redis.delete(CACHE_KEY)
+            _redis.delete(CACHE_TS_KEY)
         except Exception:
             pass
     _mem_cache["data"] = None
     _mem_cache["ts"] = 0
+
+
+def _do_revalidate():
+    """Background worker: fetch fresh data and update cache."""
+    global _revalidating
+    try:
+        data = _fetch_from_api()
+        _cache_set(data)
+    except Exception:
+        pass
+    finally:
+        with _revalidate_lock:
+            _revalidating = False
 
 
 def headers():
@@ -97,11 +130,30 @@ def fetch_raindrops(collection_id, page=0, per_page=50):
 
 
 def fetch_all():
-    """Fetch everything, grouped by collection. Uses Redis cache (falls back to in-memory)."""
-    cached = _cache_get()
-    if cached is not None:
-        return cached
+    """Return cached data immediately (stale-while-revalidate).
+    If cache is stale, serve old data and kick off a background refresh.
+    If cache is empty (cold start), block synchronously."""
+    global _revalidating
+    data, age = _cache_get_with_age()
 
+    if data is not None:
+        if age is not None and age >= CACHE_TTL:
+            # Stale — serve immediately and revalidate in background
+            with _revalidate_lock:
+                if not _revalidating:
+                    _revalidating = True
+                    t = threading.Thread(target=_do_revalidate, daemon=True)
+                    t.start()
+        return data
+
+    # Cold start — no cached data at all, must block
+    fresh = _fetch_from_api()
+    _cache_set(fresh)
+    return fresh
+
+
+def _fetch_from_api():
+    """Fetch all collections and bookmarks fresh from the Raindrop API."""
     collections = fetch_collections()
     grouped = []
     for coll in collections:
@@ -171,7 +223,6 @@ def fetch_all():
             }
         )
 
-    _cache_set(grouped)
     return grouped
 
 
