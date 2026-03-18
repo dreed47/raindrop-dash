@@ -753,9 +753,43 @@
       .modal-error.visible {
         display: block;
       }
+      /* --- Toast --- */
+      .toast {
+        position: fixed;
+        bottom: 28px;
+        left: 50%;
+        transform: translateX(-50%) translateY(20px);
+        background: #2d333b;
+        color: var(--text);
+        border: 1px solid var(--border);
+        border-radius: 8px;
+        padding: 10px 20px;
+        font-size: 0.95rem;
+        box-shadow: 0 4px 20px rgba(0, 0, 0, 0.4);
+        opacity: 0;
+        pointer-events: none;
+        transition:
+          opacity 0.2s,
+          transform 0.2s;
+        z-index: 9999;
+        white-space: nowrap;
+      }
+      .toast.show {
+        opacity: 1;
+        transform: translateX(-50%) translateY(0);
+      }
+      .toast.success {
+        border-color: #3fb950;
+        color: #3fb950;
+      }
+      .toast.error {
+        border-color: #f85149;
+        color: #f85149;
+      }
     </style>
   </head>
   <body>
+    <div id="toast" class="toast"></div>
     <div class="header">
       <div class="header-inner">
         <div class="logo">
@@ -1331,6 +1365,18 @@
         }
       });
 
+      let _toastTimer;
+      function showToast(msg, type = "success") {
+        const t = document.getElementById("toast");
+        t.textContent = msg;
+        t.className = `toast ${type}`;
+        // Force reflow so transition fires even on rapid successive calls
+        t.getBoundingClientRect();
+        t.classList.add("show");
+        clearTimeout(_toastTimer);
+        _toastTimer = setTimeout(() => t.classList.remove("show"), 3000);
+      }
+
       // --- Edit bookmark modal ---
       let _editId = null;
       let _editOrigCollId = null;
@@ -1413,6 +1459,7 @@
           const j = await r.json();
           if (!j.ok) throw new Error(j.error);
           closeEditModal();
+          showToast("Bookmark saved");
           // Refresh server cache and update UI
           try {
             const rb = document.getElementById("refreshBtn");
@@ -1493,6 +1540,7 @@
           const j = await r.json();
           if (!j.ok) throw new Error(j.error);
           closeAddModal();
+          showToast("Bookmark added");
           // Refresh data so the new bookmark appears
           const rb = document.getElementById("refreshBtn");
           rb.classList.add("spinning");
@@ -1531,6 +1579,7 @@
           const grid = card.closest(".bookmarks-grid");
           const group = card.closest(".collection-group");
           card.remove();
+          showToast("Bookmark deleted");
           // Also remove from DATA so counts stay accurate
           DATA.forEach((c) => {
             c.bookmarks = c.bookmarks.filter((b) => b.id !== id);
