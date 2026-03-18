@@ -40,8 +40,6 @@ body {
 }
 
 .header-inner {
-  max-width: 1400px;
-  margin: 0 auto;
   display: flex;
   align-items: center;
   gap: 16px;
@@ -142,8 +140,6 @@ body {
 
 /* --- Layout --- */
 .layout {
-  max-width: 1400px;
-  margin: 0 auto;
   display: flex;
   min-height: calc(100vh - 65px);
 }
@@ -272,15 +268,15 @@ body {
 }
 
 .collection-group {
-  margin-bottom: 40px;
+  margin-bottom: 24px;
 }
 
 .collection-title {
   font-size: 1.15rem;
   font-weight: 600;
   letter-spacing: -0.01em;
-  margin-bottom: 12px;
-  padding-bottom: 8px;
+  margin-bottom: 8px;
+  padding-bottom: 6px;
   border-bottom: 1px solid var(--border);
   display: flex;
   align-items: center;
@@ -332,7 +328,7 @@ body {
   background: var(--surface);
   border: 1px solid var(--border);
   border-radius: var(--radius);
-  padding: 14px 16px;
+  padding: 10px 12px;
   text-decoration: none;
   color: var(--text);
   transition: all 0.15s;
@@ -438,9 +434,22 @@ body {
   overflow: hidden;
   text-overflow: ellipsis;
   display: -webkit-box;
-  -webkit-line-clamp: 2;
+  -webkit-line-clamp: 1;
   -webkit-box-orient: vertical;
   line-height: 1.4;
+  cursor: pointer;
+  transition: color 0.12s;
+}
+
+.bm-excerpt:hover {
+  color: var(--text);
+}
+
+.bm-excerpt.expanded {
+  display: block;
+  overflow: visible;
+  -webkit-line-clamp: unset;
+  cursor: pointer;
 }
 
 .bm-tags {

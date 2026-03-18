@@ -280,7 +280,7 @@ function renderMain() {
     <div class="bm-body">
       <div class="bm-title">${esc(b.title)}</div>
       <div class="bm-domain">${b.important ? '<span class="bm-important">&#9829;</span> ' : ""}${esc(b.domain)}</div>
-      ${b.excerpt ? `<div class="bm-excerpt">${esc(b.excerpt)}</div>` : ""}
+      ${b.excerpt ? `<div class="bm-excerpt" onclick="event.preventDefault();event.stopPropagation();this.classList.toggle('expanded')" title="Click to expand">${esc(b.excerpt)}</div>` : ""}
       ${b.note ? `<div class="bm-note">${esc(b.note)}</div>` : ""}
       ${b.tags.length ? `<div class="bm-tags">${b.tags.map((t) => `<span class="bm-tag${activeTag === t ? " active-tag" : ""}" data-tag="${esc(t)}">${esc(t)}</span>`).join("")}</div>` : ""}
       ${(b.highlights && b.highlights.length) || b.created ? `<div class="bm-meta">${b.highlights && b.highlights.length ? `<div class="bm-highlights">${b.highlights.map((c) => `<span class="bm-hl" style="--hl-color:${hlColor(c)}"></span>`).join("")}</div>` : ""}${b.created ? `<span class="bm-date">${fmtDate(b.created)}</span>` : ""}</div>` : ""}
