@@ -459,7 +459,9 @@
         padding: 2px 7px;
         border-radius: 4px;
         cursor: pointer;
-        transition: background 0.15s, color 0.15s;
+        transition:
+          background 0.15s,
+          color 0.15s;
       }
       .bm-tag:hover {
         background: var(--accent);
@@ -959,7 +961,9 @@
 
     <div class="tag-filter-bar" id="tagFilterBar">
       Filtering by tag: <strong id="tagFilterLabel"></strong>
-      <button class="tag-filter-clear" onclick="clearTagFilter()">&#x2715; Clear</button>
+      <button class="tag-filter-clear" onclick="clearTagFilter()">
+        &#x2715; Clear
+      </button>
     </div>
 
     <div class="layout">
@@ -1152,12 +1156,15 @@
           c.bookmarks.forEach((b) => {
             if (seenIds.has(b.id)) return;
             seenIds.add(b.id);
-            b.tags.forEach((t) => { tagMap[t] = (tagMap[t] || 0) + 1; });
+            b.tags.forEach((t) => {
+              tagMap[t] = (tagMap[t] || 0) + 1;
+            });
           });
         });
         const tags = Object.keys(tagMap).sort();
         if (tags.length) {
-          html += '<div class="sidebar-label" style="margin-top:8px">Tags</div>';
+          html +=
+            '<div class="sidebar-label" style="margin-top:8px">Tags</div>';
           tags.forEach((t) => {
             html += `<div class="coll-item sidebar-tag${activeTag === t ? " active" : ""}" data-tag="${esc(t)}">
           <span class="coll-name">#${esc(t)}</span>
@@ -1336,7 +1343,7 @@
           const found = c.bookmarks.find((b) => b.id === id);
           if (found) {
             bm = found;
-            collId = (c.id === -1 || c.id === 0) ? "" : String(c.id);
+            collId = c.id === -1 || c.id === 0 ? "" : String(c.id);
             break;
           }
         }
@@ -1385,7 +1392,8 @@
         btn.textContent = "Saving…";
         document.getElementById("editError").className = "modal-error";
         try {
-          const newCollId = document.getElementById("editCollection").value || null;
+          const newCollId =
+            document.getElementById("editCollection").value || null;
           const body = {
             link: url,
             title: document.getElementById("editTitle").value.trim(),
