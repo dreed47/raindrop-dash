@@ -1,13 +1,14 @@
 :root {
-  --bg: #1a1e2e;
-  --surface: #222638;
-  --surface-hover: #1c2129;
-  --border: #30363d;
+  --bg: #252728;
+  --sidebar-bg: #1e1e1f;
+  --surface: #2e2e30;
+  --surface-hover: #343437;
+  --border: #3a3a3c;
   --text: #e6edf3;
   --text-muted: #8b949e;
   --accent: #58a6ff;
   --accent-dim: rgba(88, 166, 255, 0.12);
-  --tag-bg: #1f2937;
+  --tag-bg: #2a2a2c;
   --tag-text: #7dd3fc;
   --radius: 8px;
   --font: "DM Sans", -apple-system, sans-serif;
@@ -148,6 +149,7 @@ body {
 .sidebar {
   width: 240px;
   flex-shrink: 0;
+  background: var(--sidebar-bg);
   border-right: 1px solid var(--border);
   padding: 16px 0 0;
   position: sticky;
@@ -623,7 +625,7 @@ body {
   left: 0;
   bottom: 0;
   width: 280px;
-  background: var(--bg);
+  background: var(--sidebar-bg);
   border-right: 1px solid var(--border);
   z-index: 201;
   overflow-y: auto;
