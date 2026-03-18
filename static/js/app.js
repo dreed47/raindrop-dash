@@ -453,6 +453,7 @@ function openEditModal(id) {
   document.getElementById("editUrl").value = bm.link || "";
   document.getElementById("editTitle").value = bm.title || "";
   document.getElementById("editTags").value = (bm.tags || []).join(", ");
+  document.getElementById("editExcerpt").value = bm.excerpt || "";
   document.getElementById("editNote").value = bm.note || "";
   document.getElementById("editImportant").checked = !!bm.important;
   document.getElementById("editError").className = "modal-error";
@@ -487,6 +488,7 @@ async function saveEdit() {
       link: url,
       title: document.getElementById("editTitle").value.trim(),
       tags: document.getElementById("editTags").value,
+      excerpt: document.getElementById("editExcerpt").value.trim(),
       note: document.getElementById("editNote").value.trim(),
       important: document.getElementById("editImportant").checked,
     };
@@ -545,6 +547,7 @@ function openAddModal() {
   document.getElementById("addUrl").value = "";
   document.getElementById("addTitle").value = "";
   document.getElementById("addTags").value = "";
+  document.getElementById("addExcerpt").value = "";
   document.getElementById("addImportant").checked = false;
   document.getElementById("addError").className = "modal-error";
   document.getElementById("addSaveBtn").disabled = false;
@@ -578,6 +581,7 @@ async function saveBookmark() {
         link: url,
         title: document.getElementById("addTitle").value.trim(),
         tags: document.getElementById("addTags").value,
+        excerpt: document.getElementById("addExcerpt").value.trim(),
         collection_id:
           document.getElementById("addCollection").value || null,
         important: document.getElementById("addImportant").checked,

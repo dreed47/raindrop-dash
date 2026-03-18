@@ -397,6 +397,9 @@ def api_add():
             pass
     if "important" in body:
         payload["important"] = bool(body["important"])
+    excerpt = (body.get("excerpt") or "").strip()
+    if excerpt:
+        payload["excerpt"] = excerpt
 
     r = requests.post(
         f"{API_BASE}/raindrop",
@@ -459,6 +462,8 @@ def api_edit(raindrop_id):
             payload["collection"] = {"$id": -1}
     if "note" in body:
         payload["note"] = body["note"]
+    if "excerpt" in body:
+        payload["excerpt"] = (body["excerpt"] or "").strip()
     if "important" in body:
         payload["important"] = bool(body["important"])
     if not payload:
