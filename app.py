@@ -1,14 +1,34 @@
+import hmac
 import json
+import logging
 import os
+import secrets
 import time
 import threading
+from datetime import timedelta
+from functools import wraps
 import requests
-from flask import Flask, render_template, jsonify, request
+from flask import Flask, render_template, jsonify, request, redirect, session, url_for
+
+logging.basicConfig(
+    level=logging.INFO,
+    format="%(asctime)s [%(levelname)s] %(message)s",
+    datefmt="%Y-%m-%d %H:%M:%S",
+)
+logger = logging.getLogger(__name__)
 
 app = Flask(__name__)
 
+_secret_key = os.environ.get("SECRET_KEY", "")
+if not _secret_key:
+    _secret_key = secrets.token_hex(32)
+    logger.warning("SECRET_KEY not set — sessions will not survive container restarts")
+app.secret_key = _secret_key
+app.permanent_session_lifetime = timedelta(days=3650)
+
 RAINDROP_TOKEN = os.environ.get("RAINDROP_TOKEN", "")
 CACHE_TTL = int(os.environ.get("CACHE_TTL", 3600))  # seconds, default 1 hour
+DASHBOARD_PASSWORD = os.environ.get("DASHBOARD_PASSWORD", "")
 API_BASE = "https://api.raindrop.io/rest/v1"
 REDIS_URL = os.environ.get("REDIS_URL", "redis://redis:6379/0")
 CACHE_KEY = "raindrop_data"
@@ -16,12 +36,27 @@ CACHE_TS_KEY = "raindrop_data_ts"
 
 # --- Redis client (optional — falls back to in-memory if unavailable) ---
 _redis = None
+_redis_error = None
 try:
     import redis as _redis_lib
     _redis = _redis_lib.from_url(REDIS_URL, socket_connect_timeout=2, socket_timeout=2)
     _redis.ping()
-except Exception:
+    logger.info("Redis connected: %s", REDIS_URL)
+except Exception as e:
+    _redis_error = str(e)
     _redis = None
+    logger.warning("Redis unavailable (%s) — using in-memory cache", _redis_error)
+
+# --- Startup validation ---
+if not RAINDROP_TOKEN:
+    logger.error("RAINDROP_TOKEN is not set — bookmarks will not load")
+else:
+    logger.info("RAINDROP_TOKEN configured (len=%d)", len(RAINDROP_TOKEN))
+logger.info("CACHE_TTL=%ds", CACHE_TTL)
+if DASHBOARD_PASSWORD:
+    logger.info("Dashboard password protection: enabled")
+else:
+    logger.info("Dashboard password protection: disabled (DASHBOARD_PASSWORD not set)")
 
 # In-memory fallback
 _mem_cache = {"data": None, "ts": 0}
@@ -226,17 +261,69 @@ def _fetch_from_api():
     return grouped
 
 
+@app.before_request
+def check_auth():
+    if not DASHBOARD_PASSWORD:
+        return  # auth not configured — open access
+    if request.endpoint in ("login", "logout", "api_status", "static"):
+        return  # always allow
+    if not session.get("authenticated"):
+        if request.path.startswith("/api/"):
+            return jsonify({"ok": False, "error": "unauthorized"}), 401
+        return redirect(url_for("login"))
+
+
+@app.route("/login", methods=["GET", "POST"])
+def login():
+    if not DASHBOARD_PASSWORD:
+        return redirect(url_for("index"))
+    error = None
+    if request.method == "POST":
+        pw = request.form.get("password", "")
+        if hmac.compare_digest(pw.encode(), DASHBOARD_PASSWORD.encode()):
+            session.permanent = True
+            session["authenticated"] = True
+            logger.info("Successful login from %s", request.remote_addr)
+            return redirect(url_for("index"))
+        error = "Incorrect password"
+        logger.warning("Failed login attempt from %s", request.remote_addr)
+    return render_template("login.html", error=error)
+
+
+@app.route("/logout")
+def logout():
+    session.clear()
+    return redirect(url_for("login"))
+
+
 @app.route("/")
 def index():
-    return render_template("index.html")
+    return render_template("index.html", auth_enabled=bool(DASHBOARD_PASSWORD))
+
+
+@app.route("/api/status")
+def api_status():
+    """Return configuration health for frontend validation."""
+    data, age = _cache_get_with_age()
+    return jsonify({
+        "ok": True,
+        "token_set": bool(RAINDROP_TOKEN),
+        "redis_connected": _redis is not None,
+        "redis_error": _redis_error,
+        "cache_ttl": CACHE_TTL,
+        "cache_age": round(age) if age is not None else None,
+        "cache_populated": data is not None,
+    })
 
 
 @app.route("/api/bookmarks")
 def api_bookmarks():
     try:
         data = fetch_all()
+        logger.info("Served %d collections", len(data))
         return jsonify({"ok": True, "collections": data})
     except Exception as e:
+        logger.error("api_bookmarks failed: %s", e)
         return jsonify({"ok": False, "error": str(e)}), 500
 
 
@@ -246,8 +333,10 @@ def api_refresh():
     _cache_bust()
     try:
         data = fetch_all()
+        logger.info("Cache refreshed — %d collections", len(data))
         return jsonify({"ok": True, "collections": data})
     except Exception as e:
+        logger.error("api_refresh failed: %s", e)
         return jsonify({"ok": False, "error": str(e)}), 500
 
 

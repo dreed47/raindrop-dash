@@ -20,6 +20,8 @@ services:
       - CACHE_TTL=${CACHE_TTL:-3600}
       - PORT=${PORT:-8080}
       - REDIS_URL=redis://redis:6379/0
+      - DASHBOARD_PASSWORD=${DASHBOARD_PASSWORD:-}
+      - SECRET_KEY=${SECRET_KEY:-}
 
     healthcheck:
       test: ["CMD", "curl", "-f", "http://localhost:${PORT:-8080}/"]
