@@ -216,6 +216,10 @@
         color: var(--text);
       }
 
+      .sidebar-tag {
+        cursor: pointer;
+      }
+
       /* --- Sidebar label --- */
       .sidebar-label {
         font-size: 0.82rem;
@@ -454,6 +458,48 @@
         color: var(--tag-text);
         padding: 2px 7px;
         border-radius: 4px;
+        cursor: pointer;
+        transition: background 0.15s, color 0.15s;
+      }
+      .bm-tag:hover {
+        background: var(--accent);
+        color: #fff;
+      }
+      .bm-tag.active-tag {
+        background: var(--accent);
+        color: #fff;
+      }
+
+      .tag-filter-bar {
+        display: none;
+        align-items: center;
+        gap: 8px;
+        padding: 6px 24px;
+        background: var(--accent-dim);
+        border-bottom: 1px solid var(--border);
+        font-size: 0.9rem;
+        color: var(--text-muted);
+      }
+      .tag-filter-bar.visible {
+        display: flex;
+      }
+      .tag-filter-bar strong {
+        color: var(--tag-text);
+        font-family: var(--mono);
+      }
+      .tag-filter-clear {
+        margin-left: auto;
+        background: none;
+        border: 1px solid var(--border);
+        color: var(--text-muted);
+        border-radius: 4px;
+        padding: 2px 10px;
+        cursor: pointer;
+        font-size: 0.85rem;
+      }
+      .tag-filter-clear:hover {
+        color: var(--text);
+        border-color: var(--text-muted);
       }
 
       .bm-note {
@@ -911,6 +957,11 @@
       </div>
     </div>
 
+    <div class="tag-filter-bar" id="tagFilterBar">
+      Filtering by tag: <strong id="tagFilterLabel"></strong>
+      <button class="tag-filter-clear" onclick="clearTagFilter()">&#x2715; Clear</button>
+    </div>
+
     <div class="layout">
       <nav class="sidebar" id="sidebar">
         <div class="sidebar-collections" id="sidebarCollections"></div>
@@ -938,6 +989,7 @@
       let DATA = [];
       let TREE = [];
       let activeCollection = null;
+      let activeTag = null;
       let expandedCollections = new Set();
       const COLORS = [
         "#58a6ff",
@@ -1081,8 +1133,9 @@
       }
 
       function renderSidebar() {
+        // Collections section
         let html = '<div class="sidebar-label">Collections</div>';
-        html += `<div class="coll-item ${activeCollection === null ? "active" : ""}" onclick="filterCollection(null)">
+        html += `<div class="coll-item ${activeCollection === null && !activeTag ? "active" : ""}" onclick="filterCollection(null)">
       <div class="coll-dot" style="background:#8b949e"></div>
       <span class="coll-name">All</span>
       <span class="coll-count">${DATA.reduce((s, c) => s + c.bookmarks.length, 0)}</span>
@@ -1090,6 +1143,29 @@
         TREE.forEach((node, i) => {
           html += renderCollItem(node, 0, i);
         });
+
+        // Tags section — deduplicate by bookmark ID first, exclude Unsorted collection
+        const seenIds = new Set();
+        const tagMap = {};
+        DATA.forEach((c) => {
+          if (c.id === -1) return; // skip Unsorted
+          c.bookmarks.forEach((b) => {
+            if (seenIds.has(b.id)) return;
+            seenIds.add(b.id);
+            b.tags.forEach((t) => { tagMap[t] = (tagMap[t] || 0) + 1; });
+          });
+        });
+        const tags = Object.keys(tagMap).sort();
+        if (tags.length) {
+          html += '<div class="sidebar-label" style="margin-top:8px">Tags</div>';
+          tags.forEach((t) => {
+            html += `<div class="coll-item sidebar-tag${activeTag === t ? " active" : ""}" data-tag="${esc(t)}">
+          <span class="coll-name">#${esc(t)}</span>
+          <span class="coll-count">${tagMap[t]}</span>
+        </div>`;
+          });
+        }
+
         document.getElementById("sidebarCollections").innerHTML = html;
         document.getElementById("drawerContent").innerHTML = html;
       }
@@ -1106,6 +1182,9 @@
         let total = 0;
         filtered.forEach((coll) => {
           let bms = coll.bookmarks;
+          if (activeTag) {
+            bms = bms.filter((b) => b.tags.includes(activeTag));
+          }
           if (q) {
             bms = bms.filter(
               (b) =>
@@ -1136,7 +1215,7 @@
             <div class="bm-domain">${b.important ? '<span class="bm-important">&#9829;</span> ' : ""}${esc(b.domain)}</div>
             ${b.excerpt ? `<div class="bm-excerpt">${esc(b.excerpt)}</div>` : ""}
             ${b.note ? `<div class="bm-note">${esc(b.note)}</div>` : ""}
-            ${b.tags.length ? `<div class="bm-tags">${b.tags.map((t) => `<span class="bm-tag">${esc(t)}</span>`).join("")}</div>` : ""}
+            ${b.tags.length ? `<div class="bm-tags">${b.tags.map((t) => `<span class="bm-tag${activeTag === t ? " active-tag" : ""}" data-tag="${esc(t)}">${esc(t)}</span>`).join("")}</div>` : ""}
             ${(b.highlights && b.highlights.length) || b.created ? `<div class="bm-meta">${b.highlights && b.highlights.length ? `<div class="bm-highlights">${b.highlights.map((c) => `<span class="bm-hl" style="background:${hlColor(c)}"></span>`).join("")}</div>` : ""}${b.created ? `<span class="bm-date">${fmtDate(b.created)}</span>` : ""}</div>` : ""}
           </div>
         </a>`;
@@ -1149,6 +1228,8 @@
       }
 
       function filterCollection(id) {
+        activeTag = null;
+        document.getElementById("tagFilterBar").classList.remove("visible");
         activeCollection = id;
         localStorage.setItem("activeCollection", id === null ? "null" : id);
         const coll = id === null ? null : DATA.find((c) => c.id === id);
@@ -1157,6 +1238,30 @@
         renderSidebar();
         renderMain();
         window.scrollTo({ top: 0, behavior: "smooth" });
+      }
+
+      function filterTag(tag) {
+        if (activeTag === tag) {
+          clearTagFilter();
+          return;
+        }
+        activeTag = tag;
+        // Always search across all collections so count matches sidebar
+        activeCollection = null;
+        localStorage.setItem("activeCollection", "null");
+        document.title = "Bookmarks";
+        document.getElementById("tagFilterLabel").textContent = tag;
+        document.getElementById("tagFilterBar").classList.add("visible");
+        renderSidebar();
+        renderMain();
+        window.scrollTo({ top: 0, behavior: "smooth" });
+      }
+
+      function clearTagFilter() {
+        activeTag = null;
+        document.getElementById("tagFilterBar").classList.remove("visible");
+        renderSidebar();
+        renderMain();
       }
 
       function updateStats() {
@@ -1195,6 +1300,15 @@
         return HL_COLORS[name] || "#8b949e";
       }
 
+      // Tag click — event delegation on the main area and sidebar
+      document.addEventListener("click", (e) => {
+        const tagEl = e.target.closest("[data-tag]");
+        if (!tagEl) return;
+        e.preventDefault();
+        e.stopPropagation();
+        filterTag(tagEl.dataset.tag);
+      });
+
       // Debounced search
       let _st;
       document.getElementById("search").addEventListener("input", () => {
@@ -1212,6 +1326,7 @@
 
       // --- Edit bookmark modal ---
       let _editId = null;
+      let _editOrigCollId = null;
 
       function openEditModal(id) {
         // Find bookmark and its parent collection from loaded DATA
@@ -1221,17 +1336,18 @@
           const found = c.bookmarks.find((b) => b.id === id);
           if (found) {
             bm = found;
-            collId = c.id === 0 ? "" : String(c.id);
+            collId = (c.id === -1 || c.id === 0) ? "" : String(c.id);
             break;
           }
         }
         if (!bm) return;
         _editId = id;
+        _editOrigCollId = collId;
 
         const sel = document.getElementById("editCollection");
         sel.innerHTML = '<option value="">Unsorted</option>';
         DATA.forEach((c) => {
-          if (c.id === 0) return; // Unsorted already listed
+          if (c.id === -1) return; // Unsorted already listed
           const opt = document.createElement("option");
           opt.value = c.id;
           opt.textContent = c.title;
@@ -1253,6 +1369,7 @@
       function closeEditModal() {
         document.getElementById("editModal").classList.remove("open");
         _editId = null;
+        _editOrigCollId = null;
       }
 
       async function saveEdit() {
@@ -1268,17 +1385,22 @@
         btn.textContent = "Saving…";
         document.getElementById("editError").className = "modal-error";
         try {
+          const newCollId = document.getElementById("editCollection").value || null;
+          const body = {
+            link: url,
+            title: document.getElementById("editTitle").value.trim(),
+            tags: document.getElementById("editTags").value,
+            note: document.getElementById("editNote").value.trim(),
+          };
+          // Only send collection_id if it actually changed — sending it unconditionally
+          // causes Raindrop to reset the bookmark's sort position to the top.
+          const origVal = _editOrigCollId || null;
+          if (newCollId !== origVal) body.collection_id = newCollId;
+
           const r = await fetch(`/api/edit/${_editId}`, {
             method: "PUT",
             headers: { "Content-Type": "application/json" },
-            body: JSON.stringify({
-              link: url,
-              title: document.getElementById("editTitle").value.trim(),
-              tags: document.getElementById("editTags").value,
-              note: document.getElementById("editNote").value.trim(),
-              collection_id:
-                document.getElementById("editCollection").value || null,
-            }),
+            body: JSON.stringify(body),
           });
           const j = await r.json();
           if (!j.ok) throw new Error(j.error);

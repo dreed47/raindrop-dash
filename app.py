@@ -93,12 +93,12 @@ def fetch_all():
             }
         )
 
-    # Also fetch Unsorted (collection id 0)
-    unsorted = fetch_raindrops(0)
+    # Also fetch Unsorted (collection id -1)
+    unsorted = fetch_raindrops(-1)
     if unsorted:
         grouped.append(
             {
-                "id": 0,
+                "id": -1,
                 "title": "Unsorted",
                 "count": len(unsorted),
                 "color": None,
