@@ -29,6 +29,7 @@ app.permanent_session_lifetime = timedelta(days=3650)
 RAINDROP_TOKEN = os.environ.get("RAINDROP_TOKEN", "")
 CACHE_TTL = int(os.environ.get("CACHE_TTL", 3600))  # seconds, default 1 hour
 DASHBOARD_PASSWORD = os.environ.get("DASHBOARD_PASSWORD", "")
+READONLY_PASSWORD = os.environ.get("READONLY_PASSWORD", "")
 API_BASE = "https://api.raindrop.io/rest/v1"
 REDIS_URL = os.environ.get("REDIS_URL", "redis://redis:6379/0")
 CACHE_KEY = "raindrop_data"
@@ -55,6 +56,8 @@ else:
 logger.info("CACHE_TTL=%ds", CACHE_TTL)
 if DASHBOARD_PASSWORD:
     logger.info("Dashboard password protection: enabled")
+    if READONLY_PASSWORD:
+        logger.info("Read-only password: enabled")
 else:
     logger.info("Dashboard password protection: disabled (DASHBOARD_PASSWORD not set)")
 
@@ -273,6 +276,21 @@ def check_auth():
         return redirect(url_for("login"))
 
 
+def _is_admin():
+    """Return True if the current session has admin (full-access) role."""
+    # When auth is disabled everyone is implicitly admin
+    if not DASHBOARD_PASSWORD:
+        return True
+    return session.get("role") == "admin"
+
+
+def _require_admin():
+    """Return a 403 JSON response if the caller is not an admin, else None."""
+    if not _is_admin():
+        return jsonify({"ok": False, "error": "forbidden — read-only account"}), 403
+    return None
+
+
 @app.route("/login", methods=["GET", "POST"])
 def login():
     if not DASHBOARD_PASSWORD:
@@ -283,7 +301,14 @@ def login():
         if hmac.compare_digest(pw.encode(), DASHBOARD_PASSWORD.encode()):
             session.permanent = True
             session["authenticated"] = True
-            logger.info("Successful login from %s", request.remote_addr)
+            session["role"] = "admin"
+            logger.info("Admin login from %s", request.remote_addr)
+            return redirect(url_for("index"))
+        if READONLY_PASSWORD and hmac.compare_digest(pw.encode(), READONLY_PASSWORD.encode()):
+            session.permanent = True
+            session["authenticated"] = True
+            session["role"] = "readonly"
+            logger.info("Read-only login from %s", request.remote_addr)
             return redirect(url_for("index"))
         error = "Incorrect password"
         logger.warning("Failed login attempt from %s", request.remote_addr)
@@ -298,7 +323,8 @@ def logout():
 
 @app.route("/")
 def index():
-    return render_template("index.html", auth_enabled=bool(DASHBOARD_PASSWORD))
+    role = session.get("role", "admin")  # admin when auth is disabled
+    return render_template("index.html", auth_enabled=bool(DASHBOARD_PASSWORD), role=role)
 
 
 @app.route("/api/status")
@@ -330,6 +356,9 @@ def api_bookmarks():
 @app.route("/api/refresh", methods=["POST"])
 def api_refresh():
     """Force cache invalidation."""
+    guard = _require_admin()
+    if guard:
+        return guard
     _cache_bust()
     try:
         data = fetch_all()
@@ -343,6 +372,9 @@ def api_refresh():
 @app.route("/api/add", methods=["POST"])
 def api_add():
     """Create a new raindrop via the Raindrop.io API."""
+    guard = _require_admin()
+    if guard:
+        return guard
     body = request.get_json(silent=True) or {}
     link = (body.get("link") or "").strip()
     if not link:
@@ -385,6 +417,9 @@ def api_add():
 @app.route("/api/remove/<int:raindrop_id>", methods=["DELETE"])
 def api_remove(raindrop_id):
     """Permanently delete a raindrop."""
+    guard = _require_admin()
+    if guard:
+        return guard
     r = requests.delete(
         f"{API_BASE}/raindrop/{raindrop_id}",
         headers=headers(),
@@ -401,6 +436,9 @@ def api_remove(raindrop_id):
 @app.route("/api/edit/<int:raindrop_id>", methods=["PUT"])
 def api_edit(raindrop_id):
     """Update an existing raindrop."""
+    guard = _require_admin()
+    if guard:
+        return guard
     body = request.get_json(silent=True) or {}
     payload = {}
     title = (body.get("title") or "").strip()

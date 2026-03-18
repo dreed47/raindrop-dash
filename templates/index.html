@@ -25,7 +25,10 @@
       href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,wght@0,400;0,500;0,600;0,700&family=JetBrains+Mono:wght@400;500&display=swap"
       rel="stylesheet"
     />
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/app.css') }}">
+    <link
+      rel="stylesheet"
+      href="{{ url_for('static', filename='css/app.css') }}"
+    />
   </head>
   <body>
     <div id="toast" class="toast"></div>
@@ -81,6 +84,7 @@
             </svg>
             Refresh
           </button>
+          {% if role != 'readonly' %}
           <button
             class="btn"
             onclick="openAddModal()"
@@ -99,6 +103,7 @@
             </svg>
             Add
           </button>
+          {% endif %}
           <button
             class="menu-btn"
             onclick="openDrawer()"
@@ -289,6 +294,9 @@
       </main>
     </div>
 
+    <script>
+      const ROLE = "{{ role }}";
+    </script>
     <script src="{{ url_for('static', filename='js/app.js') }}"></script>
   </body>
 </html>

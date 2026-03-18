@@ -61,34 +61,42 @@ Once added, the icon opens the dashboard full-screen with no browser address bar
 | `RAINDROP_TOKEN` | *(required)* | Raindrop.io API test token |
 | `CACHE_TTL` | `3600` | Seconds to cache bookmarks before re-fetching (1 hour) |
 | `PORT` | `8080` | Port the server listens on |
-| `DASHBOARD_PASSWORD` | *(unset)* | Password to protect the dashboard. Leave unset to disable auth |
-| `SECRET_KEY` | *(auto-generated)* | Signs session cookies. **Must be set** if using `DASHBOARD_PASSWORD`, otherwise sessions break on restart |
+| `DASHBOARD_PASSWORD` | *(unset — auth disabled)* | Password to protect the dashboard. Leave unset to disable auth entirely |
+| `READONLY_PASSWORD` | *(unset)* | Optional second password granting read-only access (browse/filter only — no add/edit/delete) |
+| `SECRET_KEY` | *(must be set by user)* | Signs session cookies. Required when using `DASHBOARD_PASSWORD` — without it every container restart logs everyone out |
 
 ### Authentication
 
-If `DASHBOARD_PASSWORD` is set, the dashboard shows a login page before granting access. Authentication is entirely optional — leave `DASHBOARD_PASSWORD` unset and the dashboard is open to anyone who can reach it (fine for a private home network; not recommended if exposed to the internet).
+Authentication is **optional but recommended** if the dashboard is accessible outside your private home network. Without it, anyone who can reach the URL can view and modify your bookmarks.
+
+Leave `DASHBOARD_PASSWORD` unset to disable auth entirely — no login page, no cookies.
 
 **Session behaviour:** once you log in, the session cookie is permanent with no expiry. You will not be prompted again on that device/browser, even after closing and reopening the browser.
 
 **To enable:**
 
-1. Generate a secret key:
+1. Generate a secret key — you must do this yourself, it is not auto-generated:
    ```bash
    python3 -c "import secrets; print(secrets.token_hex(32))"
    ```
-2. Add both variables to your `.env`:
+2. Add the variables to your `.env`:
    ```
-   DASHBOARD_PASSWORD=your_chosen_password
+   DASHBOARD_PASSWORD=your_admin_password
    SECRET_KEY=<output from step 1>
+
+   # Optional: second password for read-only access
+   # READONLY_PASSWORD=your_readonly_password
    ```
 3. Rebuild and restart:
    ```bash
    docker compose up -d --build
    ```
 
+Users who log in with `READONLY_PASSWORD` can browse, search, and filter bookmarks but will not see the Add button and cannot edit or delete anything. Users who log in with `DASHBOARD_PASSWORD` have full access.
+
 **To log out:** click the **Log out** link at the bottom of the sidebar, or navigate to `/logout` directly.
 
-> **Note:** `SECRET_KEY` must be a stable value. If it is not set, a random key is generated on each container start, which invalidates all active sessions every time the container restarts.
+> **Warning:** if `SECRET_KEY` is not set, the app falls back to a randomly generated key on each startup. This means every container restart will invalidate all active sessions and log everyone out. Always set a stable `SECRET_KEY` when using authentication.
 
 ## HTTPS
 

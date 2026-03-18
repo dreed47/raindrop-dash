@@ -21,6 +21,7 @@ services:
       - PORT=${PORT:-8080}
       - REDIS_URL=redis://redis:6379/0
       - DASHBOARD_PASSWORD=${DASHBOARD_PASSWORD:-}
+      - READONLY_PASSWORD=${READONLY_PASSWORD:-}
       - SECRET_KEY=${SECRET_KEY:-}
 
     healthcheck:
