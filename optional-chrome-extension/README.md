@@ -17,7 +17,7 @@ Chrome loads the extension directly from disk — if the folder is moved or dele
 
 Keep it there permanently.
 
-### 2. Point the redirect at your Raindrop collection
+### 2. Edit the redirect URL
 
 Open `index.html` and change the URL to the Raindrop page you want to land on when opening a new tab:
 
@@ -27,7 +27,7 @@ Open `index.html` and change the URL to the Raindrop page you want to land on wh
 
 Replace `YOUR_COLLECTION_ID` with the numeric ID from your Raindrop URL, or use `https://app.raindrop.io` to open the default view. You can also point this at your self-hosted raindrop-dash instance (e.g. `http://your-server:8080`).
 
-### 2. Load the extension into Chrome
+### 3. Load the extension into Chrome
 
 1. Open Chrome and go to `chrome://extensions`
 2. Enable **Developer mode** (toggle in the top-right corner)
@@ -35,7 +35,7 @@ Replace `YOUR_COLLECTION_ID` with the numeric ID from your Raindrop URL, or use 
 4. Select this `optional-chrome-extension` folder
 5. The extension will appear in the list — no restart needed
 
-### 3. Verify
+### 4. Verify
 
 Open a new tab. Chrome will briefly show a blank page then redirect to your chosen URL.
 

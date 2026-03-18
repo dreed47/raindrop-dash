@@ -21,12 +21,16 @@ This dashboard is a lightweight alternative to the Raindrop mobile app. Self-hos
 - Collection hierarchy — parent/child collections displayed as an expandable tree
 - Sidebar navigation on desktop; slide-in drawer on mobile
 - Full-text search across titles, domains, excerpts, and tags
-- Add new bookmarks directly from the dashboard (URL, title, collection, tags)
+- Filter by tag — click any tag to show only bookmarks with that tag
+- Sort per collection — cycle between Default, A→Z, Newest, and Oldest (saved across page loads)
+- Add bookmarks directly from the dashboard (URL, title, collection, tags, description)
+- Edit any bookmark in place — title, URL, tags, description
 - Delete bookmarks with a single click — removes instantly without a page reload
+- Click a bookmark's description to expand it inline
 - Manual refresh button to bust the cache on demand
-- Remembers last selected collection across page loads
+- Remembers last selected collection and per-collection sort order across page loads
 - Keyboard shortcut: `/` to focus search
-- Responsive layout — single-column cards on mobile, grid on desktop
+- Responsive layout — single-column cards on mobile, multi-column grid on desktop
 
 ## Setup
 
@@ -63,7 +67,7 @@ Once added, the icon opens the dashboard full-screen with no browser address bar
 | `PORT` | `8080` | Port the server listens on |
 | `DASHBOARD_PASSWORD` | *(unset — auth disabled)* | Password to protect the dashboard. Leave unset to disable auth entirely |
 | `READONLY_PASSWORD` | *(unset)* | Optional second password granting read-only access (browse/filter only — no add/edit/delete) |
-| `SECRET_KEY` | *(must be set by user)* | Signs session cookies. Required when using `DASHBOARD_PASSWORD` — without it every container restart logs everyone out |
+| `SECRET_KEY` | *(no default — required when auth is enabled)* | Signs session cookies. Required when using `DASHBOARD_PASSWORD` — without it every container restart logs everyone out |
 
 ### Authentication
 
