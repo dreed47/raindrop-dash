@@ -663,12 +663,26 @@ body {
   .menu-btn {
     display: inline-flex;
   }
-  .header-inner {
-    gap: 10px;
+  .header {
+    padding: 10px 16px;
   }
+  .header-inner {
+    gap: 8px;
+  }
+  .stats {
+    display: none;
+  }
+  /* Logo stays on row 1 (order 0 default), actions move to row 1 */
+  .header-actions {
+    order: 1;
+    margin-left: auto;
+  }
+  /* Search drops to its own full-width row 2 */
   .search-box {
+    order: 2;
+    flex-basis: 100%;
     max-width: 100%;
-    min-width: 150px;
+    min-width: 0;
   }
   .main {
     padding: 16px;

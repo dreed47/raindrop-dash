@@ -221,7 +221,8 @@ function renderSidebar() {
   }
 
   document.getElementById("sidebarCollections").innerHTML = html;
-  document.getElementById("drawerContent").innerHTML = html;
+  const footer = document.getElementById("sidebar").querySelector(".sidebar-footer");
+  document.getElementById("drawerContent").innerHTML = html + (footer ? footer.outerHTML : "");
 }
 
 function renderMain() {
@@ -334,6 +335,7 @@ function filterTag(tag) {
   document.title = "Bookmarks";
   document.getElementById("tagFilterLabel").textContent = tag;
   document.getElementById("tagFilterBar").classList.add("visible");
+  closeDrawer();
   renderSidebar();
   renderMain();
   window.scrollTo({ top: 0, behavior: "smooth" });
