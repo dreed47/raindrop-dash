@@ -2,6 +2,10 @@
 
 A self-hosted bookmark dashboard powered by your Raindrop.io account. Browse, search, and navigate your bookmarks from any browser — including mobile Chrome, where the Raindrop.io extension cannot be installed.
 
+![Desktop view](images/screenshot1.png)
+
+![Mobile view](images/screenshot2.png)
+
 ## Why this exists
 
 The official Raindrop.io browser extension only works on desktop browsers. On **mobile Chrome** (Android) and other mobile browsers that don't support extensions, you lose quick access to your bookmarks unless you use the Raindrop mobile app.
