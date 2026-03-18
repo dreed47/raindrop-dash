@@ -11,6 +11,8 @@
     />
     <meta name="apple-mobile-web-app-title" content="Bookmarks" />
     <link rel="manifest" href="/static/manifest.json" />
+    <link rel="icon" href="https://www.google.com/s2/favicons?domain=raindrop.io&sz=64" />
+    <link rel="apple-touch-icon" href="https://www.google.com/s2/favicons?domain=raindrop.io&sz=128" />
     <title>Bookmarks</title>
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link
@@ -337,6 +339,31 @@
         transform: translateY(-1px);
       }
       .bm-card:hover .bm-delete {
+        opacity: 1;
+      }
+
+      .bm-edit {
+        position: absolute;
+        top: 8px;
+        right: 32px;
+        opacity: 0;
+        background: none;
+        border: none;
+        color: var(--text-muted);
+        cursor: pointer;
+        padding: 4px;
+        border-radius: 4px;
+        line-height: 1;
+        transition:
+          opacity 0.15s,
+          color 0.15s,
+          background 0.15s;
+      }
+      .bm-edit:hover {
+        color: var(--accent);
+        background: var(--accent-dim);
+      }
+      .bm-card:hover .bm-edit {
         opacity: 1;
       }
 
@@ -781,6 +808,36 @@
 
     <div
       class="modal-backdrop"
+      id="editModal"
+      onclick="if(event.target===this)closeEditModal()"
+    >
+      <div class="modal">
+        <h2>Edit Bookmark</h2>
+        <label>URL *
+          <input type="url" id="editUrl" placeholder="https://example.com" autocomplete="off" autocapitalize="off" />
+        </label>
+        <label>Title
+          <input type="text" id="editTitle" placeholder="Page title" />
+        </label>
+        <label>Collection
+          <select id="editCollection"><option value="">Unsorted</option></select>
+        </label>
+        <label>Tags <span style="font-weight:400">(comma-separated)</span>
+          <input type="text" id="editTags" placeholder="tag1, tag2" />
+        </label>
+        <label>Note
+          <textarea id="editNote" rows="3" placeholder="Personal annotation…" style="resize:vertical"></textarea>
+        </label>
+        <div class="modal-error" id="editError"></div>
+        <div class="modal-actions">
+          <button class="btn" onclick="closeEditModal()">Cancel</button>
+          <button class="btn btn-primary" id="editSaveBtn" onclick="saveEdit()">Save</button>
+        </div>
+      </div>
+    </div>
+
+    <div
+      class="modal-backdrop"
       id="addModal"
       onclick="handleModalBackdropClick(event)"
     >
@@ -1041,6 +1098,9 @@
           bms.forEach((b) => {
             const favicon = `https://www.google.com/s2/favicons?domain=${encodeURIComponent(b.domain)}&sz=32`;
             html += `<a class="bm-card" href="${esc(b.link)}" target="_blank" rel="noopener">
+          <button class="bm-edit" onclick="event.preventDefault();event.stopPropagation();openEditModal(${b.id})" aria-label="Edit bookmark" title="Edit">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg>
+          </button>
           <button class="bm-delete" onclick="event.preventDefault();event.stopPropagation();deleteBookmark(${b.id}, this)" aria-label="Delete bookmark" title="Delete">
             <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="3 6 5 6 21 6"/><path d="M19 6l-1 14H6L5 6"/><path d="M10 11v6"/><path d="M14 11v6"/><path d="M9 6V4h6v2"/></svg>
           </button>
@@ -1123,6 +1183,99 @@
           document.getElementById("search").focus();
         }
       });
+
+      // --- Edit bookmark modal ---
+      let _editId = null;
+
+      function openEditModal(id) {
+        // Find bookmark and its parent collection from loaded DATA
+        let bm = null;
+        let collId = "";
+        for (const c of DATA) {
+          const found = c.bookmarks.find((b) => b.id === id);
+          if (found) { bm = found; collId = c.id === 0 ? "" : String(c.id); break; }
+        }
+        if (!bm) return;
+        _editId = id;
+
+        const sel = document.getElementById("editCollection");
+        sel.innerHTML = '<option value="">Unsorted</option>';
+        DATA.forEach((c) => {
+          if (c.id === 0) return; // Unsorted already listed
+          const opt = document.createElement("option");
+          opt.value = c.id;
+          opt.textContent = c.title;
+          sel.appendChild(opt);
+        });
+        sel.value = collId;
+
+        document.getElementById("editUrl").value = bm.link || "";
+        document.getElementById("editTitle").value = bm.title || "";
+        document.getElementById("editTags").value = (bm.tags || []).join(", ");
+        document.getElementById("editNote").value = bm.note || "";
+        document.getElementById("editError").className = "modal-error";
+        document.getElementById("editSaveBtn").disabled = false;
+        document.getElementById("editSaveBtn").textContent = "Save";
+        document.getElementById("editModal").classList.add("open");
+        setTimeout(() => document.getElementById("editTitle").focus(), 50);
+      }
+
+      function closeEditModal() {
+        document.getElementById("editModal").classList.remove("open");
+        _editId = null;
+      }
+
+      async function saveEdit() {
+        const url = document.getElementById("editUrl").value.trim();
+        if (!url) {
+          const el = document.getElementById("editError");
+          el.textContent = "URL is required.";
+          el.className = "modal-error visible";
+          return;
+        }
+        const btn = document.getElementById("editSaveBtn");
+        btn.disabled = true;
+        btn.textContent = "Saving…";
+        document.getElementById("editError").className = "modal-error";
+        try {
+          const r = await fetch(`/api/edit/${_editId}`, {
+            method: "PUT",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({
+              link: url,
+              title: document.getElementById("editTitle").value.trim(),
+              tags: document.getElementById("editTags").value,
+              note: document.getElementById("editNote").value.trim(),
+              collection_id: document.getElementById("editCollection").value || null,
+            }),
+          });
+          const j = await r.json();
+          if (!j.ok) throw new Error(j.error);
+          closeEditModal();
+          // Refresh server cache and update UI
+          try {
+            const rb = document.getElementById("refreshBtn");
+            if (rb) rb.classList.add("spinning");
+            const rr = await fetch("/api/refresh", { method: "POST" });
+            const rj = await rr.json();
+            if (rj.ok) {
+              DATA = rj.collections;
+              TREE = buildTree(DATA);
+            }
+            if (rb) rb.classList.remove("spinning");
+          } catch (_) {}
+          // Always re-render UI after a successful edit
+          renderSidebar();
+          renderMain();
+          updateStats();
+        } catch (err) {
+          const el = document.getElementById("editError");
+          el.textContent = err.message;
+          el.className = "modal-error visible";
+          btn.disabled = false;
+          btn.textContent = "Save";
+        }
+      }
 
       // --- Add bookmark modal ---
       function openAddModal() {

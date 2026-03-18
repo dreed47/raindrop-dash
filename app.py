@@ -214,6 +214,46 @@ def api_remove(raindrop_id):
     return jsonify({"ok": True})
 
 
+@app.route("/api/edit/<int:raindrop_id>", methods=["PUT"])
+def api_edit(raindrop_id):
+    """Update an existing raindrop."""
+    body = request.get_json(silent=True) or {}
+    payload = {}
+    title = (body.get("title") or "").strip()
+    if title:
+        payload["title"] = title
+    link = (body.get("link") or "").strip()
+    if link:
+        if not link.startswith(("http://", "https://")):
+            link = "https://" + link
+        payload["link"] = link
+    if "tags" in body:
+        payload["tags"] = [t.strip() for t in (body["tags"] or "").split(",") if t.strip()]
+    if "collection_id" in body:
+        cid = body["collection_id"]
+        try:
+            payload["collection"] = {"$id": int(cid) if cid else -1}
+        except (ValueError, TypeError):
+            payload["collection"] = {"$id": -1}
+    if "note" in body:
+        payload["note"] = body["note"]
+    if not payload:
+        return jsonify({"ok": False, "error": "nothing to update"}), 400
+    r = requests.put(
+        f"{API_BASE}/raindrop/{raindrop_id}",
+        headers={**headers(), "Content-Type": "application/json"},
+        json=payload,
+        timeout=15,
+    )
+    r.raise_for_status()
+    result = r.json()
+    if not result.get("result"):
+        return jsonify({"ok": False, "error": result.get("errorMessage", "Unknown error")}), 400
+    _cache["data"] = None
+    _cache["ts"] = 0
+    return jsonify({"ok": True})
+
+
 if __name__ == "__main__":
     port = int(os.environ.get("PORT", 8080))
     app.run(host="0.0.0.0", port=port, debug=False)
