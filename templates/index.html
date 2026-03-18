@@ -11,8 +11,14 @@
     />
     <meta name="apple-mobile-web-app-title" content="Bookmarks" />
     <link rel="manifest" href="/static/manifest.json" />
-    <link rel="icon" href="https://www.google.com/s2/favicons?domain=raindrop.io&sz=64" />
-    <link rel="apple-touch-icon" href="https://www.google.com/s2/favicons?domain=raindrop.io&sz=128" />
+    <link
+      rel="icon"
+      href="https://www.google.com/s2/favicons?domain=raindrop.io&sz=64"
+    />
+    <link
+      rel="apple-touch-icon"
+      href="https://www.google.com/s2/favicons?domain=raindrop.io&sz=128"
+    />
     <title>Bookmarks</title>
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link
@@ -809,29 +815,49 @@
     <div
       class="modal-backdrop"
       id="editModal"
-      onclick="if(event.target===this)closeEditModal()"
+      onclick="if (event.target === this) closeEditModal();"
     >
       <div class="modal">
         <h2>Edit Bookmark</h2>
-        <label>URL *
-          <input type="url" id="editUrl" placeholder="https://example.com" autocomplete="off" autocapitalize="off" />
+        <label
+          >URL *
+          <input
+            type="url"
+            id="editUrl"
+            placeholder="https://example.com"
+            autocomplete="off"
+            autocapitalize="off"
+          />
         </label>
-        <label>Title
+        <label
+          >Title
           <input type="text" id="editTitle" placeholder="Page title" />
         </label>
-        <label>Collection
-          <select id="editCollection"><option value="">Unsorted</option></select>
+        <label
+          >Collection
+          <select id="editCollection">
+            <option value="">Unsorted</option>
+          </select>
         </label>
-        <label>Tags <span style="font-weight:400">(comma-separated)</span>
+        <label
+          >Tags <span style="font-weight: 400">(comma-separated)</span>
           <input type="text" id="editTags" placeholder="tag1, tag2" />
         </label>
-        <label>Note
-          <textarea id="editNote" rows="3" placeholder="Personal annotation…" style="resize:vertical"></textarea>
+        <label
+          >Note
+          <textarea
+            id="editNote"
+            rows="3"
+            placeholder="Personal annotation…"
+            style="resize: vertical"
+          ></textarea>
         </label>
         <div class="modal-error" id="editError"></div>
         <div class="modal-actions">
           <button class="btn" onclick="closeEditModal()">Cancel</button>
-          <button class="btn btn-primary" id="editSaveBtn" onclick="saveEdit()">Save</button>
+          <button class="btn btn-primary" id="editSaveBtn" onclick="saveEdit()">
+            Save
+          </button>
         </div>
       </div>
     </div>
@@ -1193,7 +1219,11 @@
         let collId = "";
         for (const c of DATA) {
           const found = c.bookmarks.find((b) => b.id === id);
-          if (found) { bm = found; collId = c.id === 0 ? "" : String(c.id); break; }
+          if (found) {
+            bm = found;
+            collId = c.id === 0 ? "" : String(c.id);
+            break;
+          }
         }
         if (!bm) return;
         _editId = id;
@@ -1246,7 +1276,8 @@
               title: document.getElementById("editTitle").value.trim(),
               tags: document.getElementById("editTags").value,
               note: document.getElementById("editNote").value.trim(),
-              collection_id: document.getElementById("editCollection").value || null,
+              collection_id:
+                document.getElementById("editCollection").value || null,
             }),
           });
           const j = await r.json();
