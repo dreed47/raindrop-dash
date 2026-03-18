@@ -1,3 +1,4 @@
+import json
 import os
 import time
 import requests
@@ -8,8 +9,53 @@ app = Flask(__name__)
 RAINDROP_TOKEN = os.environ.get("RAINDROP_TOKEN", "")
 CACHE_TTL = int(os.environ.get("CACHE_TTL", 3600))  # seconds, default 1 hour
 API_BASE = "https://api.raindrop.io/rest/v1"
+REDIS_URL = os.environ.get("REDIS_URL", "redis://redis:6379/0")
+CACHE_KEY = "raindrop_data"
 
-_cache = {"data": None, "ts": 0}
+# --- Redis client (optional — falls back to in-memory if unavailable) ---
+_redis = None
+try:
+    import redis as _redis_lib
+    _redis = _redis_lib.from_url(REDIS_URL, socket_connect_timeout=2, socket_timeout=2)
+    _redis.ping()
+except Exception:
+    _redis = None
+
+# In-memory fallback
+_mem_cache = {"data": None, "ts": 0}
+
+
+def _cache_get():
+    if _redis:
+        try:
+            raw = _redis.get(CACHE_KEY)
+            if raw:
+                return json.loads(raw)
+        except Exception:
+            pass
+    if _mem_cache["data"] and (time.time() - _mem_cache["ts"]) < CACHE_TTL:
+        return _mem_cache["data"]
+    return None
+
+
+def _cache_set(data):
+    if _redis:
+        try:
+            _redis.setex(CACHE_KEY, CACHE_TTL, json.dumps(data))
+        except Exception:
+            pass
+    _mem_cache["data"] = data
+    _mem_cache["ts"] = time.time()
+
+
+def _cache_bust():
+    if _redis:
+        try:
+            _redis.delete(CACHE_KEY)
+        except Exception:
+            pass
+    _mem_cache["data"] = None
+    _mem_cache["ts"] = 0
 
 
 def headers():
@@ -51,10 +97,10 @@ def fetch_raindrops(collection_id, page=0, per_page=50):
 
 
 def fetch_all():
-    """Fetch everything, grouped by collection. Uses simple in-memory cache."""
-    now = time.time()
-    if _cache["data"] and (now - _cache["ts"]) < CACHE_TTL:
-        return _cache["data"]
+    """Fetch everything, grouped by collection. Uses Redis cache (falls back to in-memory)."""
+    cached = _cache_get()
+    if cached is not None:
+        return cached
 
     collections = fetch_collections()
     grouped = []
@@ -125,8 +171,7 @@ def fetch_all():
             }
         )
 
-    _cache["data"] = grouped
-    _cache["ts"] = now
+    _cache_set(grouped)
     return grouped
 
 
@@ -147,8 +192,7 @@ def api_bookmarks():
 @app.route("/api/refresh", methods=["POST"])
 def api_refresh():
     """Force cache invalidation."""
-    _cache["data"] = None
-    _cache["ts"] = 0
+    _cache_bust()
     try:
         data = fetch_all()
         return jsonify({"ok": True, "collections": data})
@@ -194,8 +238,7 @@ def api_add():
         return jsonify({"ok": False, "error": result.get("errorMessage", "Unknown error")}), 400
 
     # Bust cache so the new bookmark appears on next load
-    _cache["data"] = None
-    _cache["ts"] = 0
+    _cache_bust()
     return jsonify({"ok": True})
 
 
@@ -211,8 +254,7 @@ def api_remove(raindrop_id):
     result = r.json()
     if not result.get("result"):
         return jsonify({"ok": False, "error": result.get("errorMessage", "Unknown error")}), 400
-    _cache["data"] = None
-    _cache["ts"] = 0
+    _cache_bust()
     return jsonify({"ok": True})
 
 
@@ -253,8 +295,7 @@ def api_edit(raindrop_id):
     result = r.json()
     if not result.get("result"):
         return jsonify({"ok": False, "error": result.get("errorMessage", "Unknown error")}), 400
-    _cache["data"] = None
-    _cache["ts"] = 0
+    _cache_bust()
     return jsonify({"ok": True})
 
 
