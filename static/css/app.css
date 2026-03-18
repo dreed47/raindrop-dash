@@ -190,6 +190,24 @@ body {
   cursor: pointer;
 }
 
+.tags-toggle-btn {
+  display: block;
+  width: calc(100% - 32px);
+  margin: 4px 16px 2px;
+  padding: 5px 8px;
+  background: none;
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  color: var(--text-muted);
+  font-size: 0.78rem;
+  text-align: center;
+  cursor: pointer;
+}
+.tags-toggle-btn:hover {
+  color: var(--text);
+  border-color: var(--accent);
+}
+
 /* --- Sidebar label --- */
 .sidebar-label {
   font-size: 0.82rem;

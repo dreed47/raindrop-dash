@@ -23,6 +23,7 @@ services:
       - DASHBOARD_PASSWORD=${DASHBOARD_PASSWORD:-}
       - READONLY_PASSWORD=${READONLY_PASSWORD:-}
       - SECRET_KEY=${SECRET_KEY:-}
+      - DEMO_MODE=${DEMO_MODE:-}
 
     healthcheck:
       test: ["CMD", "curl", "-f", "http://localhost:${PORT:-8080}/"]

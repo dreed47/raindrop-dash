@@ -1,0 +1,1830 @@
+[
+  {
+    "id": 1001,
+    "title": "3D Printing",
+    "parent_id": null,
+    "count": 21,
+    "color": "#f59e0b",
+    "bookmarks": [
+      {
+        "id": 10001,
+        "title": "Printables \u2014 3D Model Repository",
+        "link": "https://www.printables.com/",
+        "excerpt": "Community-driven 3D model repository by Prusa. Download free STL and 3MF files for your 3D printer, share your designs, and earn rewards.",
+        "domain": "printables.com",
+        "cover": "",
+        "tags": [
+          "models",
+          "stl",
+          "community"
+        ],
+        "created": "2025-01-05T08:00:00.000Z",
+        "type": "link",
+        "important": true,
+        "note": "Best model quality overall \u2014 check here first",
+        "highlights": []
+      },
+      {
+        "id": 10002,
+        "title": "Thingiverse \u2014 Digital Designs for Physical Objects",
+        "link": "https://www.thingiverse.com/",
+        "excerpt": "One of the largest 3D printing communities with millions of free downloadable designs for makers, hobbyists, and educators.",
+        "domain": "thingiverse.com",
+        "cover": "",
+        "tags": [
+          "models",
+          "stl",
+          "community"
+        ],
+        "created": "2025-01-06T09:30:00.000Z",
+        "type": "link",
+        "important": false,
+        "note": "",
+        "highlights": []
+      },
+      {
+        "id": 10003,
+        "title": "MakerWorld \u2014 Bambu Lab Community",
+        "link": "https://makerworld.com/",
+        "excerpt": "Bambu Lab's model-sharing platform with profiles optimized for Bambu printers. Includes pre-sliced downloads and multicolor projects.",
+        "domain": "makerworld.com",
+        "cover": "",
+        "tags": [
+          "models",
+          "bambu",
+          "multicolor"
+        ],
+        "created": "2025-01-10T10:00:00.000Z",
+        "type": "link",
+        "important": true,
+        "note": "Pre-sliced profiles for X1C \u2014 saves tons of time",
+        "highlights": []
+      },
+      {
+        "id": 10004,
+        "title": "r/3Dprinting \u2014 Reddit Community",
+        "link": "https://www.reddit.com/r/3Dprinting/",
+        "excerpt": "Active Reddit community for 3D printing enthusiasts sharing prints, troubleshooting tips, and news about printers and materials.",
+        "domain": "reddit.com",
+        "cover": "",
+        "tags": [
+          "community",
+          "reddit",
+          "troubleshooting"
+        ],
+        "created": "2025-02-01T08:00:00.000Z",
+        "type": "link",
+        "important": false,
+        "note": "",
+        "highlights": []
+      },
+      {
+        "id": 10005,
+        "title": "Teaching Tech 3D Printer Calibration",
+        "link": "https://teachingtechyt.github.io/calibration.html",
+        "excerpt": "Step-by-step 3D printer calibration guide covering e-steps, flow rate, temperature towers, retraction, pressure advance, and dimensional accuracy.",
+        "domain": "teachingtechyt.github.io",
+        "cover": "",
+        "tags": [
+          "calibration",
+          "tuning",
+          "guide"
+        ],
+        "created": "2025-01-25T09:00:00.000Z",
+        "type": "link",
+        "important": false,
+        "note": "",
+        "highlights": []
+      },
+      {
+        "id": 10006,
+        "title": "All3DP \u2014 3D Printing Magazine",
+        "link": "https://all3dp.com/",
+        "excerpt": "Online magazine covering 3D printing news, reviews, guides, and tutorials for hobbyists and professionals.",
+        "domain": "all3dp.com",
+        "cover": "",
+        "tags": [
+          "news",
+          "reviews",
+          "magazine"
+        ],
+        "created": "2025-02-12T08:00:00.000Z",
+        "type": "link",
+        "important": false,
+        "note": "",
+        "highlights": []
+      },
+      {
+        "id": 10007,
+        "title": "Thangs \u2014 3D Model Search Engine",
+        "link": "https://thangs.com/",
+        "excerpt": "Geometric search engine for 3D models. Search across Thingiverse, Printables, MyMiniFactory and more from one place.",
+        "domain": "thangs.com",
+        "cover": "",
+        "tags": [
+          "models",
+          "search",
+          "aggregator"
+        ],
+        "created": "2025-02-14T09:00:00.000Z",
+        "type": "link",
+        "important": false,
+        "note": "Searches multiple repos at once",
+        "highlights": []
+      },
+      {
+        "id": 10008,
+        "title": "MyMiniFactory \u2014 Curated STL Files",
+        "link": "https://www.myminifactory.com/",
+        "excerpt": "Curated platform for 3D printable models. Every model is tested and guaranteed printable before being listed.",
+        "domain": "myminifactory.com",
+        "cover": "",
+        "tags": [
+          "models",
+          "stl",
+          "curated"
+        ],
+        "created": "2025-02-16T10:00:00.000Z",
+        "type": "link",
+        "important": false,
+        "note": "",
+        "highlights": []
+      },
+      {
+        "id": 10009,
+        "title": "3D Printer Academy \u2014 YouTube",
+        "link": "https://www.youtube.com/@3DPrinterAcademy",
+        "excerpt": "Beginner-friendly 3D printing tutorials covering slicer settings, first layer tips, and troubleshooting common print failures.",
+        "domain": "youtube.com",
+        "cover": "",
+        "tags": [
+          "youtube",
+          "tutorials",
+          "beginner"
+        ],
+        "created": "2025-02-18T11:00:00.000Z",
+        "type": "link",
+        "important": false,
+        "note": "",
+        "highlights": []
+      },
+      {
+        "id": 10010,
+        "title": "CNC Kitchen \u2014 3D Print Testing",
+        "link": "https://www.youtube.com/@CNCKitchen",
+        "excerpt": "Engineering-focused 3D printing channel. Rigorous material testing, strength comparisons, and deep dives into print settings.",
+        "domain": "youtube.com",
+        "cover": "",
+        "tags": [
+          "youtube",
+          "testing",
+          "materials"
+        ],
+        "created": "2025-02-20T08:00:00.000Z",
+        "type": "link",
+        "important": true,
+        "note": "Best data-driven print testing on YouTube",
+        "highlights": []
+      },
+      {
+        "id": 10017,
+        "title": "Maker's Muse \u2014 YouTube",
+        "link": "https://www.youtube.com/@MakersMuse",
+        "excerpt": "Australian maker channel covering 3D printing, design tips, product reviews, and creative projects.",
+        "domain": "youtube.com",
+        "cover": "",
+        "tags": [
+          "youtube",
+          "reviews",
+          "design"
+        ],
+        "created": "2025-02-22T09:00:00.000Z",
+        "type": "link",
+        "important": false,
+        "note": "",
+        "highlights": []
+      },
+      {
+        "id": 10018,
+        "title": "Prusa Knowledge Base",
+        "link": "https://help.prusa3d.com/",
+        "excerpt": "Prusa Research support portal with assembly guides, firmware docs, troubleshooting trees, and print quality reference photos.",
+        "domain": "help.prusa3d.com",
+        "cover": "",
+        "tags": [
+          "prusa",
+          "reference",
+          "troubleshooting"
+        ],
+        "created": "2025-02-24T10:00:00.000Z",
+        "type": "link",
+        "important": false,
+        "note": "Useful even for non-Prusa printers",
+        "highlights": []
+      },
+      {
+        "id": 10019,
+        "title": "3DPrintBeginner \u2014 Guides & Reviews",
+        "link": "https://3dprintbeginner.com/",
+        "excerpt": "In-depth 3D printer reviews, upgrade guides, and Klipper firmware tutorials for budget and prosumer machines.",
+        "domain": "3dprintbeginner.com",
+        "cover": "",
+        "tags": [
+          "reviews",
+          "klipper",
+          "upgrades"
+        ],
+        "created": "2025-02-26T11:00:00.000Z",
+        "type": "link",
+        "important": false,
+        "note": "",
+        "highlights": []
+      },
+      {
+        "id": 10020,
+        "title": "Klipper Firmware",
+        "link": "https://www.klipper3d.org/",
+        "excerpt": "High-performance 3D printer firmware running on a Raspberry Pi. Input shaping, pressure advance, and faster speeds with better quality.",
+        "domain": "klipper3d.org",
+        "cover": "",
+        "tags": [
+          "firmware",
+          "klipper",
+          "performance"
+        ],
+        "created": "2025-02-28T08:00:00.000Z",
+        "type": "link",
+        "important": false,
+        "note": "",
+        "highlights": []
+      },
+      {
+        "id": 10021,
+        "title": "Ellis' Print Tuning Guide",
+        "link": "https://ellis3dp.com/Print-Tuning-Guide/",
+        "excerpt": "Comprehensive print tuning guide for Klipper and Marlin covering pressure advance, extrusion multiplier, and first layer squish with visual references.",
+        "domain": "ellis3dp.com",
+        "cover": "",
+        "tags": [
+          "tuning",
+          "calibration",
+          "klipper"
+        ],
+        "created": "2025-03-01T09:00:00.000Z",
+        "type": "link",
+        "important": true,
+        "note": "Best visual calibration guide out there",
+        "highlights": []
+      },
+      {
+        "id": 10022,
+        "title": "Voron Design \u2014 CoreXY Printer Kits",
+        "link": "https://vorondesign.com/",
+        "excerpt": "Community-designed CoreXY 3D printer platform. Open-source designs for high-speed enclosed printers.",
+        "domain": "vorondesign.com",
+        "cover": "",
+        "tags": [
+          "voron",
+          "corexy",
+          "diy-printer"
+        ],
+        "created": "2025-03-03T10:00:00.000Z",
+        "type": "link",
+        "important": false,
+        "note": "",
+        "highlights": []
+      },
+      {
+        "id": 10023,
+        "title": "3D Printing Nerd \u2014 YouTube",
+        "link": "https://www.youtube.com/@3DPrintingNerd",
+        "excerpt": "Enthusiast 3D printing channel with printer reviews, filament tests, and community print challenges.",
+        "domain": "youtube.com",
+        "cover": "",
+        "tags": [
+          "youtube",
+          "reviews",
+          "community"
+        ],
+        "created": "2025-03-05T09:00:00.000Z",
+        "type": "link",
+        "important": false,
+        "note": "",
+        "highlights": []
+      },
+      {
+        "id": 10024,
+        "title": "Simplify3D Troubleshooting Guide",
+        "link": "https://www.simplify3d.com/resources/print-quality-troubleshooting/",
+        "excerpt": "Visual troubleshooting guide for common 3D print quality issues with photos and solutions for stringing, warping, and more.",
+        "domain": "simplify3d.com",
+        "cover": "",
+        "tags": [
+          "troubleshooting",
+          "quality",
+          "reference"
+        ],
+        "created": "2025-03-07T10:00:00.000Z",
+        "type": "link",
+        "important": false,
+        "note": "Fastest way to diagnose print issues visually",
+        "highlights": []
+      },
+      {
+        "id": 10025,
+        "title": "Matterhackers \u2014 Supplies & Guides",
+        "link": "https://www.matterhackers.com/",
+        "excerpt": "3D printing retailer with extensive how-to articles, material comparison charts, and printer buyer's guides.",
+        "domain": "matterhackers.com",
+        "cover": "",
+        "tags": [
+          "supplier",
+          "guides",
+          "materials"
+        ],
+        "created": "2025-03-09T08:00:00.000Z",
+        "type": "link",
+        "important": false,
+        "note": "",
+        "highlights": []
+      },
+      {
+        "id": 10026,
+        "title": "Cults3D \u2014 Premium & Free Models",
+        "link": "https://cults3d.com/",
+        "excerpt": "3D model marketplace with both free and premium designs. Strong selection of artistic, miniature, and functional prints.",
+        "domain": "cults3d.com",
+        "cover": "",
+        "tags": [
+          "models",
+          "marketplace",
+          "premium"
+        ],
+        "created": "2025-03-11T09:00:00.000Z",
+        "type": "link",
+        "important": false,
+        "note": "",
+        "highlights": []
+      },
+      {
+        "id": 10027,
+        "title": "Yeggi \u2014 3D Printer Model Search",
+        "link": "https://www.yeggi.com/",
+        "excerpt": "Search engine for 3D printable models aggregating results from Thingiverse, Cults, Printables, and dozens of other repositories.",
+        "domain": "yeggi.com",
+        "cover": "",
+        "tags": [
+          "search",
+          "models",
+          "aggregator"
+        ],
+        "created": "2025-03-13T10:00:00.000Z",
+        "type": "link",
+        "important": false,
+        "note": "",
+        "highlights": []
+      }
+    ]
+  },
+  {
+    "id": 1011,
+    "title": "Bambu Lab",
+    "parent_id": 1001,
+    "count": 3,
+    "color": "#f59e0b",
+    "bookmarks": [
+      {
+        "id": 10011,
+        "title": "Bambu Lab Wiki",
+        "link": "https://wiki.bambulab.com/",
+        "excerpt": "Official knowledge base for Bambu Lab printers. Covers setup, calibration, maintenance, firmware updates, and troubleshooting for X1C, P1, and A1 series.",
+        "domain": "wiki.bambulab.com",
+        "cover": "",
+        "tags": [
+          "bambu",
+          "reference",
+          "troubleshooting"
+        ],
+        "created": "2025-01-12T14:00:00.000Z",
+        "type": "link",
+        "important": true,
+        "note": "",
+        "highlights": []
+      },
+      {
+        "id": 10012,
+        "title": "OrcaSlicer \u2014 Advanced 3D Print Slicer",
+        "link": "https://github.com/SoftFever/OrcaSlicer",
+        "excerpt": "Open-source slicer forked from Bambu Studio with advanced calibration tools, better multi-material support, and community-driven features.",
+        "domain": "github.com",
+        "cover": "",
+        "tags": [
+          "slicer",
+          "open-source",
+          "tools"
+        ],
+        "created": "2025-01-18T11:00:00.000Z",
+        "type": "link",
+        "important": false,
+        "note": "Better than stock Bambu Studio for multi-color tuning",
+        "highlights": []
+      },
+      {
+        "id": 10013,
+        "title": "r/BambuLab \u2014 Reddit Community",
+        "link": "https://www.reddit.com/r/BambuLab/",
+        "excerpt": "Reddit community dedicated to Bambu Lab printers. Firmware news, print showcases, troubleshooting, and AMS tips from X1C, P1S, and A1 owners.",
+        "domain": "reddit.com",
+        "cover": "",
+        "tags": [
+          "bambu",
+          "community",
+          "reddit"
+        ],
+        "created": "2025-02-05T10:00:00.000Z",
+        "type": "link",
+        "important": false,
+        "note": "",
+        "highlights": []
+      }
+    ]
+  },
+  {
+    "id": 1012,
+    "title": "Filaments & Materials",
+    "parent_id": 1001,
+    "count": 3,
+    "color": "#f59e0b",
+    "bookmarks": [
+      {
+        "id": 10014,
+        "title": "3D Printing Filament Guide \u2014 All3DP",
+        "link": "https://all3dp.com/1/3d-printer-filament-types-3d-printing-3d-filament/",
+        "excerpt": "Comprehensive guide to 3D printing filament types including PLA, PETG, ABS, TPU, ASA, and specialty materials with settings and use cases.",
+        "domain": "all3dp.com",
+        "cover": "",
+        "tags": [
+          "filament",
+          "materials",
+          "reference"
+        ],
+        "created": "2025-02-10T12:00:00.000Z",
+        "type": "link",
+        "important": false,
+        "note": "",
+        "highlights": []
+      },
+      {
+        "id": 10015,
+        "title": "Polymaker \u2014 Engineering Filaments",
+        "link": "https://polymaker.com/",
+        "excerpt": "Premium 3D printing filament manufacturer specializing in engineering-grade materials including PC, PA6, and their PolyTerra eco-friendly PLA line.",
+        "domain": "polymaker.com",
+        "cover": "",
+        "tags": [
+          "filament",
+          "supplier",
+          "engineering"
+        ],
+        "created": "2025-02-15T09:00:00.000Z",
+        "type": "link",
+        "important": false,
+        "note": "PolyTerra PLA is the daily driver",
+        "highlights": []
+      },
+      {
+        "id": 10016,
+        "title": "Filament Temperature Tower Guide",
+        "link": "https://all3dp.com/2/3d-printer-temperature-tower/",
+        "excerpt": "How to print and read temperature towers to dial in optimal nozzle temperature for any filament. Includes slicer setup for automatic temp changes.",
+        "domain": "all3dp.com",
+        "cover": "",
+        "tags": [
+          "calibration",
+          "temperature",
+          "guide"
+        ],
+        "created": "2025-02-20T11:00:00.000Z",
+        "type": "link",
+        "important": false,
+        "note": "",
+        "highlights": []
+      }
+    ]
+  },
+  {
+    "id": 1002,
+    "title": "3D Design & CAD",
+    "parent_id": null,
+    "count": 7,
+    "color": "#8b5cf6",
+    "bookmarks": [
+      {
+        "id": 10101,
+        "title": "Fusion 360 \u2014 Autodesk",
+        "link": "https://www.autodesk.com/products/fusion-360/overview",
+        "excerpt": "Cloud-based 3D CAD/CAM/CAE tool combining industrial and mechanical design, simulation, collaboration, and machining in a single platform.",
+        "domain": "autodesk.com",
+        "cover": "",
+        "tags": [
+          "cad",
+          "fusion360",
+          "parametric"
+        ],
+        "created": "2025-01-05T10:00:00.000Z",
+        "type": "link",
+        "important": true,
+        "note": "Primary CAD tool \u2014 personal use license",
+        "highlights": []
+      },
+      {
+        "id": 10102,
+        "title": "Blender \u2014 Free 3D Creation Suite",
+        "link": "https://www.blender.org/",
+        "excerpt": "Free and open-source 3D creation suite supporting modeling, rigging, animation, simulation, rendering, compositing, and motion tracking.",
+        "domain": "blender.org",
+        "cover": "",
+        "tags": [
+          "3d-modeling",
+          "open-source",
+          "rendering"
+        ],
+        "created": "2025-01-08T09:00:00.000Z",
+        "type": "link",
+        "important": true,
+        "note": "Good for organic shapes Fusion can't handle",
+        "highlights": []
+      },
+      {
+        "id": 10103,
+        "title": "OpenSCAD \u2014 Programmers' Solid 3D CAD Modeller",
+        "link": "https://openscad.org/",
+        "excerpt": "Script-based 3D CAD modeller focused on the engineering aspects of design. Create 3D models using a programming language rather than interactive modeling.",
+        "domain": "openscad.org",
+        "cover": "",
+        "tags": [
+          "cad",
+          "parametric",
+          "scripting"
+        ],
+        "created": "2025-01-15T11:30:00.000Z",
+        "type": "link",
+        "important": false,
+        "note": "Great for parametric enclosures and gridfinity",
+        "highlights": []
+      },
+      {
+        "id": 10104,
+        "title": "Fusion 360 for 3D Printing \u2014 Maker's Muse",
+        "link": "https://www.youtube.com/playlist?list=PLTCCNNvHC8PC40tcEqaJcgENBb1ggbaKb",
+        "excerpt": "YouTube playlist covering Fusion 360 techniques specifically for 3D printing \u2014 tolerances, snap fits, threads, living hinges, and export settings.",
+        "domain": "youtube.com",
+        "cover": "",
+        "tags": [
+          "fusion360",
+          "tutorial",
+          "3d-printing"
+        ],
+        "created": "2025-01-22T14:00:00.000Z",
+        "type": "link",
+        "important": false,
+        "note": "",
+        "highlights": []
+      },
+      {
+        "id": 10105,
+        "title": "GrabCAD \u2014 Free CAD Library",
+        "link": "https://grabcad.com/library",
+        "excerpt": "Largest open-source CAD library with millions of free designs. Download STEP, IGES, STL files for components, hardware, and assemblies.",
+        "domain": "grabcad.com",
+        "cover": "",
+        "tags": [
+          "cad",
+          "library",
+          "step-files"
+        ],
+        "created": "2025-02-01T10:00:00.000Z",
+        "type": "link",
+        "important": false,
+        "note": "Great for finding reference hardware models",
+        "highlights": []
+      },
+      {
+        "id": 10106,
+        "title": "McMaster-Carr \u2014 Hardware Supplier & CAD Models",
+        "link": "https://www.mcmaster.com/",
+        "excerpt": "Industrial hardware supplier with an extensive catalog. Every product includes downloadable 3D CAD models in STEP format for design integration.",
+        "domain": "mcmaster.com",
+        "cover": "",
+        "tags": [
+          "hardware",
+          "cad-models",
+          "supplier"
+        ],
+        "created": "2025-02-05T09:00:00.000Z",
+        "type": "link",
+        "important": false,
+        "note": "Free STEP downloads \u2014 import directly into Fusion",
+        "highlights": []
+      },
+      {
+        "id": 10107,
+        "title": "Gridfinity \u2014 Modular Storage System",
+        "link": "https://gridfinity.xyz/",
+        "excerpt": "Community hub for the Gridfinity modular storage system created by Zack Freedman. Parametric bins, baseplates, and accessories for workshop organization.",
+        "domain": "gridfinity.xyz",
+        "cover": "",
+        "tags": [
+          "gridfinity",
+          "organization",
+          "parametric"
+        ],
+        "created": "2025-02-15T13:00:00.000Z",
+        "type": "link",
+        "important": true,
+        "note": "Printing a full set for the workbench",
+        "highlights": []
+      }
+    ]
+  },
+  {
+    "id": 1003,
+    "title": "Electronics",
+    "parent_id": null,
+    "count": 4,
+    "color": "#ef4444",
+    "bookmarks": [
+      {
+        "id": 10201,
+        "title": "KiCad \u2014 Open Source EDA",
+        "link": "https://www.kicad.org/",
+        "excerpt": "Free and open-source electronics design automation suite for schematic capture, PCB layout, and Gerber file generation. Full professional workflow.",
+        "domain": "kicad.org",
+        "cover": "",
+        "tags": [
+          "pcb",
+          "eda",
+          "schematic"
+        ],
+        "created": "2025-01-05T10:30:00.000Z",
+        "type": "link",
+        "important": false,
+        "note": "",
+        "highlights": []
+      },
+      {
+        "id": 10202,
+        "title": "JLCPCB \u2014 PCB Prototyping Service",
+        "link": "https://jlcpcb.com/",
+        "excerpt": "Low-cost PCB manufacturing and assembly service. Order custom PCBs starting at $2 for 5 boards with fast turnaround and SMT assembly options.",
+        "domain": "jlcpcb.com",
+        "cover": "",
+        "tags": [
+          "pcb",
+          "manufacturing",
+          "prototyping"
+        ],
+        "created": "2025-01-10T09:00:00.000Z",
+        "type": "link",
+        "important": false,
+        "note": "",
+        "highlights": []
+      },
+      {
+        "id": 10203,
+        "title": "Adafruit Learning System",
+        "link": "https://learn.adafruit.com/",
+        "excerpt": "Hundreds of detailed tutorials for electronics projects, sensors, microcontrollers, and wearables. Well-written guides with wiring diagrams and code examples.",
+        "domain": "learn.adafruit.com",
+        "cover": "",
+        "tags": [
+          "tutorials",
+          "electronics",
+          "sensors"
+        ],
+        "created": "2025-01-15T08:00:00.000Z",
+        "type": "link",
+        "important": false,
+        "note": "",
+        "highlights": []
+      },
+      {
+        "id": 10204,
+        "title": "DigiKey \u2014 Electronic Components",
+        "link": "https://www.digikey.com/",
+        "excerpt": "Major electronic components distributor with millions of parts in stock. Datasheets, reference designs, and same-day shipping on most components.",
+        "domain": "digikey.com",
+        "cover": "",
+        "tags": [
+          "components",
+          "supplier",
+          "datasheets"
+        ],
+        "created": "2025-01-20T12:00:00.000Z",
+        "type": "link",
+        "important": false,
+        "note": "Better parametric search than Mouser",
+        "highlights": []
+      }
+    ]
+  },
+  {
+    "id": 1031,
+    "title": "ESP32 & ESPHome",
+    "parent_id": 1003,
+    "count": 4,
+    "color": "#ef4444",
+    "bookmarks": [
+      {
+        "id": 10211,
+        "title": "ESPHome \u2014 DIY Smart Home Firmware",
+        "link": "https://esphome.io/",
+        "excerpt": "System to control ESP8266/ESP32 microcontrollers using simple YAML configuration files and integrate directly with Home Assistant.",
+        "domain": "esphome.io",
+        "cover": "",
+        "tags": [
+          "esphome",
+          "esp32",
+          "home-assistant"
+        ],
+        "created": "2025-01-08T08:00:00.000Z",
+        "type": "link",
+        "important": true,
+        "note": "Running 6 custom devices on this",
+        "highlights": []
+      },
+      {
+        "id": 10212,
+        "title": "ESP32 Arduino Core \u2014 Espressif",
+        "link": "https://docs.espressif.com/projects/arduino-esp32/en/latest/",
+        "excerpt": "Official Arduino core for ESP32. Reference documentation covering GPIO, WiFi, Bluetooth, I2C, SPI, and all peripheral libraries.",
+        "domain": "docs.espressif.com",
+        "cover": "",
+        "tags": [
+          "esp32",
+          "arduino",
+          "reference"
+        ],
+        "created": "2025-01-12T10:00:00.000Z",
+        "type": "link",
+        "important": true,
+        "note": "",
+        "highlights": []
+      },
+      {
+        "id": 10213,
+        "title": "Random Nerd Tutorials \u2014 ESP32 Guides",
+        "link": "https://randomnerdtutorials.com/projects-esp32/",
+        "excerpt": "Massive collection of ESP32 project tutorials covering sensors, displays, web servers, MQTT, deep sleep, and BLE with step-by-step instructions.",
+        "domain": "randomnerdtutorials.com",
+        "cover": "",
+        "tags": [
+          "esp32",
+          "tutorials",
+          "projects"
+        ],
+        "created": "2025-01-18T11:00:00.000Z",
+        "type": "link",
+        "important": false,
+        "note": "Go-to reference for quick ESP32 examples",
+        "highlights": []
+      },
+      {
+        "id": 10214,
+        "title": "WLED \u2014 Addressable LED Controller",
+        "link": "https://kno.wled.ge/",
+        "excerpt": "Fast and feature-rich firmware for ESP8266/ESP32 to control NeoPixel (WS2812B) and other addressable LED strips. Web UI, Home Assistant integration, and 100+ effects.",
+        "domain": "kno.wled.ge",
+        "cover": "",
+        "tags": [
+          "wled",
+          "leds",
+          "esp32"
+        ],
+        "created": "2025-01-25T14:00:00.000Z",
+        "type": "link",
+        "important": false,
+        "note": "",
+        "highlights": []
+      }
+    ]
+  },
+  {
+    "id": 1032,
+    "title": "Arduino & Sensors",
+    "parent_id": 1003,
+    "count": 3,
+    "color": "#ef4444",
+    "bookmarks": [
+      {
+        "id": 10215,
+        "title": "Arduino Project Hub",
+        "link": "https://projecthub.arduino.cc/",
+        "excerpt": "Official Arduino project sharing platform with tutorials spanning robotics, IoT, wearables, and environmental monitoring. Includes wiring diagrams and full code.",
+        "domain": "projecthub.arduino.cc",
+        "cover": "",
+        "tags": [
+          "arduino",
+          "projects",
+          "tutorials"
+        ],
+        "created": "2025-02-01T09:00:00.000Z",
+        "type": "link",
+        "important": false,
+        "note": "",
+        "highlights": []
+      },
+      {
+        "id": 10216,
+        "title": "Last Minute Engineers \u2014 Sensor Tutorials",
+        "link": "https://lastminuteengineers.com/",
+        "excerpt": "In-depth tutorials on popular electronics modules and sensors including BME280, OLED displays, relay modules, and motor drivers with Arduino and ESP32.",
+        "domain": "lastminuteengineers.com",
+        "cover": "",
+        "tags": [
+          "sensors",
+          "tutorials",
+          "wiring"
+        ],
+        "created": "2025-02-08T10:00:00.000Z",
+        "type": "link",
+        "important": false,
+        "note": "Best pinout diagrams I've found anywhere",
+        "highlights": []
+      },
+      {
+        "id": 10217,
+        "title": "PlatformIO \u2014 Embedded Development IDE",
+        "link": "https://platformio.org/",
+        "excerpt": "Cross-platform IDE for embedded development supporting 1000+ boards. Integrates with VS Code, handles libraries and toolchains automatically.",
+        "domain": "platformio.org",
+        "cover": "",
+        "tags": [
+          "ide",
+          "embedded",
+          "tooling"
+        ],
+        "created": "2025-02-15T11:00:00.000Z",
+        "type": "link",
+        "important": false,
+        "note": "",
+        "highlights": []
+      }
+    ]
+  },
+  {
+    "id": 1004,
+    "title": "Programming & Web Dev",
+    "parent_id": null,
+    "count": 4,
+    "color": "#0ea5e9",
+    "bookmarks": [
+      {
+        "id": 10301,
+        "title": "MDN Web Docs",
+        "link": "https://developer.mozilla.org/en-US/",
+        "excerpt": "The MDN Web Docs site provides information about Open Web technologies including HTML, CSS, and APIs for both websites and progressive web apps.",
+        "domain": "developer.mozilla.org",
+        "cover": "",
+        "tags": [
+          "reference",
+          "html",
+          "css",
+          "javascript"
+        ],
+        "created": "2025-01-05T09:00:00.000Z",
+        "type": "link",
+        "important": true,
+        "note": "",
+        "highlights": []
+      },
+      {
+        "id": 10302,
+        "title": "GitHub",
+        "link": "https://github.com/",
+        "excerpt": "Development platform for version control and collaboration. Host and review code, manage projects, and build software alongside millions of developers.",
+        "domain": "github.com",
+        "cover": "",
+        "tags": [
+          "git",
+          "code",
+          "collaboration"
+        ],
+        "created": "2025-01-08T08:00:00.000Z",
+        "type": "link",
+        "important": true,
+        "note": "",
+        "highlights": []
+      },
+      {
+        "id": 10303,
+        "title": "Stack Overflow",
+        "link": "https://stackoverflow.com/",
+        "excerpt": "Largest online community for developers to learn, share knowledge, and troubleshoot coding problems across every programming language.",
+        "domain": "stackoverflow.com",
+        "cover": "",
+        "tags": [
+          "community",
+          "q&a",
+          "troubleshooting"
+        ],
+        "created": "2025-01-12T09:00:00.000Z",
+        "type": "link",
+        "important": false,
+        "note": "",
+        "highlights": []
+      },
+      {
+        "id": 10304,
+        "title": "Regex101 \u2014 Online Regex Tester",
+        "link": "https://regex101.com/",
+        "excerpt": "Online regex tester and debugger with syntax highlighting, match details, and support for PCRE, Python, JavaScript, and Golang flavors.",
+        "domain": "regex101.com",
+        "cover": "",
+        "tags": [
+          "tools",
+          "regex",
+          "testing"
+        ],
+        "created": "2025-01-18T10:00:00.000Z",
+        "type": "link",
+        "important": false,
+        "note": "",
+        "highlights": []
+      }
+    ]
+  },
+  {
+    "id": 1041,
+    "title": "Python",
+    "parent_id": 1004,
+    "count": 3,
+    "color": "#0ea5e9",
+    "bookmarks": [
+      {
+        "id": 10311,
+        "title": "Flask \u2014 Python Micro Web Framework",
+        "link": "https://flask.palletsprojects.com/",
+        "excerpt": "Lightweight WSGI web application framework for Python. Simple core with extensive extension ecosystem for databases, auth, and APIs.",
+        "domain": "flask.palletsprojects.com",
+        "cover": "",
+        "tags": [
+          "python",
+          "flask",
+          "web-framework"
+        ],
+        "created": "2025-01-22T10:00:00.000Z",
+        "type": "link",
+        "important": true,
+        "note": "Using for Raindrop Dash backend",
+        "highlights": []
+      },
+      {
+        "id": 10312,
+        "title": "FastAPI \u2014 Modern Python Web Framework",
+        "link": "https://fastapi.tiangolo.com/",
+        "excerpt": "High-performance web framework for building APIs with Python based on standard type hints. Auto-generates OpenAPI docs.",
+        "domain": "fastapi.tiangolo.com",
+        "cover": "",
+        "tags": [
+          "python",
+          "api",
+          "framework"
+        ],
+        "created": "2025-01-28T11:00:00.000Z",
+        "type": "link",
+        "important": false,
+        "note": "",
+        "highlights": []
+      },
+      {
+        "id": 10313,
+        "title": "Real Python \u2014 Tutorials & Guides",
+        "link": "https://realpython.com/",
+        "excerpt": "Python tutorials, articles, and courses for all skill levels. Covers web dev, data science, automation, and best practices with practical examples.",
+        "domain": "realpython.com",
+        "cover": "",
+        "tags": [
+          "python",
+          "tutorials",
+          "reference"
+        ],
+        "created": "2025-02-05T09:00:00.000Z",
+        "type": "link",
+        "important": false,
+        "note": "",
+        "highlights": []
+      }
+    ]
+  },
+  {
+    "id": 1042,
+    "title": "Frontend",
+    "parent_id": 1004,
+    "count": 3,
+    "color": "#0ea5e9",
+    "bookmarks": [
+      {
+        "id": 10314,
+        "title": "Tailwind CSS",
+        "link": "https://tailwindcss.com/",
+        "excerpt": "Utility-first CSS framework for rapidly building custom user interfaces without leaving your HTML. Highly composable design system.",
+        "domain": "tailwindcss.com",
+        "cover": "",
+        "tags": [
+          "css",
+          "framework",
+          "frontend"
+        ],
+        "created": "2025-02-10T09:00:00.000Z",
+        "type": "link",
+        "important": false,
+        "note": "",
+        "highlights": []
+      },
+      {
+        "id": 10315,
+        "title": "CSS-Tricks \u2014 Tips, Tricks, and Techniques",
+        "link": "https://css-tricks.com/",
+        "excerpt": "Web design and development resource with guides on CSS, HTML, JavaScript, and modern web techniques. Includes the famous Flexbox and Grid guides.",
+        "domain": "css-tricks.com",
+        "cover": "",
+        "tags": [
+          "css",
+          "tutorials",
+          "reference"
+        ],
+        "created": "2025-02-15T10:00:00.000Z",
+        "type": "link",
+        "important": false,
+        "note": "",
+        "highlights": []
+      },
+      {
+        "id": 10316,
+        "title": "Vite \u2014 Next Generation Frontend Tooling",
+        "link": "https://vitejs.dev/",
+        "excerpt": "Build tool that provides a faster and leaner development experience for modern web projects. Lightning fast HMR and optimized builds.",
+        "domain": "vitejs.dev",
+        "cover": "",
+        "tags": [
+          "vite",
+          "build",
+          "tooling"
+        ],
+        "created": "2025-02-20T11:00:00.000Z",
+        "type": "link",
+        "important": false,
+        "note": "",
+        "highlights": []
+      }
+    ]
+  },
+  {
+    "id": 1005,
+    "title": "Woodworking & Building",
+    "parent_id": null,
+    "count": 6,
+    "color": "#a16207",
+    "bookmarks": [
+      {
+        "id": 10401,
+        "title": "Ana White \u2014 Free Furniture Plans",
+        "link": "https://www.ana-white.com/",
+        "excerpt": "Hundreds of free DIY furniture plans with step-by-step instructions, cut lists, and material estimates. Beginner-friendly to advanced projects.",
+        "domain": "ana-white.com",
+        "cover": "",
+        "tags": [
+          "plans",
+          "furniture",
+          "beginner"
+        ],
+        "created": "2025-01-08T08:00:00.000Z",
+        "type": "link",
+        "important": false,
+        "note": "",
+        "highlights": []
+      },
+      {
+        "id": 10402,
+        "title": "Woodworking for Mere Mortals \u2014 YouTube",
+        "link": "https://www.youtube.com/@stevinmarin",
+        "excerpt": "Approachable woodworking channel focused on projects anyone can build with basic tools. Weekly project videos with free downloadable plans.",
+        "domain": "youtube.com",
+        "cover": "",
+        "tags": [
+          "youtube",
+          "tutorials",
+          "beginner"
+        ],
+        "created": "2025-01-15T10:00:00.000Z",
+        "type": "link",
+        "important": false,
+        "note": "",
+        "highlights": []
+      },
+      {
+        "id": 10403,
+        "title": "The Wood Database \u2014 Wood Species Info",
+        "link": "https://www.wood-database.com/",
+        "excerpt": "Comprehensive database of wood species with properties, workability ratings, grain patterns, and identification guides for hundreds of domestic and exotic woods.",
+        "domain": "wood-database.com",
+        "cover": "",
+        "tags": [
+          "reference",
+          "materials",
+          "wood-species"
+        ],
+        "created": "2025-01-22T11:00:00.000Z",
+        "type": "link",
+        "important": true,
+        "note": "Best reference for comparing wood properties",
+        "highlights": []
+      },
+      {
+        "id": 10404,
+        "title": "Rockler \u2014 Woodworking Hardware & Supplies",
+        "link": "https://www.rockler.com/",
+        "excerpt": "Specialty woodworking retailer with hardware, jigs, project plans, and supplies. Extensive selection of drawer slides, hinges, and specialty fasteners.",
+        "domain": "rockler.com",
+        "cover": "",
+        "tags": [
+          "supplier",
+          "hardware",
+          "tools"
+        ],
+        "created": "2025-02-01T09:00:00.000Z",
+        "type": "link",
+        "important": false,
+        "note": "",
+        "highlights": []
+      },
+      {
+        "id": 10405,
+        "title": "Instructables \u2014 DIY Projects",
+        "link": "https://www.instructables.com/",
+        "excerpt": "Community platform for sharing DIY projects across woodworking, electronics, crafts, cooking, and more. Step-by-step photo guides with materials lists.",
+        "domain": "instructables.com",
+        "cover": "",
+        "tags": [
+          "diy",
+          "projects",
+          "community"
+        ],
+        "created": "2025-02-10T14:00:00.000Z",
+        "type": "link",
+        "important": false,
+        "note": "",
+        "highlights": []
+      },
+      {
+        "id": 10406,
+        "title": "Matthias Wandel \u2014 Woodworking & Engineering",
+        "link": "https://woodgears.ca/",
+        "excerpt": "Engineering-minded woodworking projects including homemade tools, jigs, and machines. Unique blend of precision woodworking and mechanical problem-solving.",
+        "domain": "woodgears.ca",
+        "cover": "",
+        "tags": [
+          "engineering",
+          "jigs",
+          "advanced"
+        ],
+        "created": "2025-02-20T08:00:00.000Z",
+        "type": "link",
+        "important": false,
+        "note": "The gear generators are incredible",
+        "highlights": []
+      }
+    ]
+  },
+  {
+    "id": 1006,
+    "title": "Art & Creative",
+    "parent_id": null,
+    "count": 5,
+    "color": "#ec4899",
+    "bookmarks": [
+      {
+        "id": 10501,
+        "title": "Coolors \u2014 Color Palette Generator",
+        "link": "https://coolors.co/",
+        "excerpt": "Fast color palette generator with thousands of trending palettes. Export to CSS, SVG, PDF, or share directly. Lock colors and generate complementary schemes.",
+        "domain": "coolors.co",
+        "cover": "",
+        "tags": [
+          "color",
+          "design",
+          "tools"
+        ],
+        "created": "2025-01-10T09:00:00.000Z",
+        "type": "link",
+        "important": false,
+        "note": "",
+        "highlights": []
+      },
+      {
+        "id": 10502,
+        "title": "Unsplash \u2014 Free High-Resolution Photos",
+        "link": "https://unsplash.com/",
+        "excerpt": "Beautiful free images and photos contributed by creators worldwide. No attribution required for most uses.",
+        "domain": "unsplash.com",
+        "cover": "",
+        "tags": [
+          "photos",
+          "free",
+          "reference"
+        ],
+        "created": "2025-01-18T10:00:00.000Z",
+        "type": "link",
+        "important": false,
+        "note": "",
+        "highlights": []
+      },
+      {
+        "id": 10503,
+        "title": "SVG Repo \u2014 Free SVG Icons & Vectors",
+        "link": "https://www.svgrepo.com/",
+        "excerpt": "500,000+ open-licensed SVG vectors and icons. Searchable, customizable colors, and ready for web projects or cutting machines.",
+        "domain": "svgrepo.com",
+        "cover": "",
+        "tags": [
+          "svg",
+          "icons",
+          "vectors"
+        ],
+        "created": "2025-01-25T11:00:00.000Z",
+        "type": "link",
+        "important": false,
+        "note": "Good for laser cutter and vinyl projects too",
+        "highlights": []
+      },
+      {
+        "id": 10504,
+        "title": "Canva \u2014 Online Design Platform",
+        "link": "https://www.canva.com/",
+        "excerpt": "Graphic design platform for creating social media graphics, presentations, posters, labels, and other visual content with drag-and-drop tools.",
+        "domain": "canva.com",
+        "cover": "",
+        "tags": [
+          "design",
+          "graphics",
+          "labels"
+        ],
+        "created": "2025-02-05T09:00:00.000Z",
+        "type": "link",
+        "important": false,
+        "note": "Quick label maker for 3D printed parts",
+        "highlights": []
+      },
+      {
+        "id": 10505,
+        "title": "Google Fonts",
+        "link": "https://fonts.google.com/",
+        "excerpt": "Library of free and open-source font families optimized for the web. Browse, test, and download fonts for use in print and digital projects.",
+        "domain": "fonts.google.com",
+        "cover": "",
+        "tags": [
+          "fonts",
+          "typography",
+          "web"
+        ],
+        "created": "2025-02-12T10:00:00.000Z",
+        "type": "link",
+        "important": false,
+        "note": "",
+        "highlights": []
+      }
+    ]
+  },
+  {
+    "id": 1007,
+    "title": "Self-Hosted & Homelab",
+    "parent_id": null,
+    "count": 22,
+    "color": "#10b981",
+    "bookmarks": [
+      {
+        "id": 10601,
+        "title": "Home Assistant",
+        "link": "https://www.home-assistant.io/",
+        "excerpt": "Open-source home automation platform focused on local control and privacy. Integrates with over 2000 devices and services.",
+        "domain": "home-assistant.io",
+        "cover": "",
+        "tags": [
+          "home-assistant",
+          "automation",
+          "smart-home"
+        ],
+        "created": "2025-01-05T08:00:00.000Z",
+        "type": "link",
+        "important": true,
+        "note": "The hub of everything",
+        "highlights": []
+      },
+      {
+        "id": 10602,
+        "title": "Awesome Self-Hosted \u2014 GitHub List",
+        "link": "https://github.com/awesome-selfhosted/awesome-selfhosted",
+        "excerpt": "Curated list of self-hostable software and services. Categorized directory covering everything from analytics to wikis with deployment info.",
+        "domain": "github.com",
+        "cover": "",
+        "tags": [
+          "self-hosted",
+          "list",
+          "reference"
+        ],
+        "created": "2025-01-10T08:00:00.000Z",
+        "type": "link",
+        "important": true,
+        "note": "Rabbit hole warning \u2014 budget your time",
+        "highlights": []
+      },
+      {
+        "id": 10603,
+        "title": "Raindrop Dash \u2014 Self-Hosted Bookmark Dashboard",
+        "link": "https://github.com/dreed47/raindrop-dash",
+        "excerpt": "A self-hosted bookmark dashboard powered by your Raindrop.io account. Browse, search, and manage bookmarks from any browser including mobile.",
+        "domain": "github.com",
+        "cover": "",
+        "tags": [
+          "bookmarks",
+          "self-hosted",
+          "raindrop"
+        ],
+        "created": "2025-01-15T09:00:00.000Z",
+        "type": "link",
+        "important": true,
+        "note": "This very dashboard!",
+        "highlights": []
+      },
+      {
+        "id": 10604,
+        "title": "r/selfhosted \u2014 Reddit Community",
+        "link": "https://www.reddit.com/r/selfhosted/",
+        "excerpt": "Active community for self-hosting enthusiasts sharing setups, troubleshooting, and discovering new applications to run on your own hardware.",
+        "domain": "reddit.com",
+        "cover": "",
+        "tags": [
+          "community",
+          "reddit",
+          "self-hosted"
+        ],
+        "created": "2025-01-20T10:00:00.000Z",
+        "type": "link",
+        "important": false,
+        "note": "",
+        "highlights": []
+      },
+      {
+        "id": 10605,
+        "title": "Portainer \u2014 Container Management UI",
+        "link": "https://www.portainer.io/",
+        "excerpt": "Lightweight management UI for Docker, Kubernetes, and Swarm environments. Deploy, manage, and troubleshoot containers through a web interface.",
+        "domain": "portainer.io",
+        "cover": "",
+        "tags": [
+          "docker",
+          "containers",
+          "management"
+        ],
+        "created": "2025-01-25T14:00:00.000Z",
+        "type": "link",
+        "important": false,
+        "note": "",
+        "highlights": []
+      },
+      {
+        "id": 10606,
+        "title": "Immich \u2014 Self-Hosted Photo Backup",
+        "link": "https://immich.app/",
+        "excerpt": "High-performance self-hosted photo and video management with mobile backup, facial recognition, and sharing.",
+        "domain": "immich.app",
+        "cover": "",
+        "tags": [
+          "photos",
+          "backup",
+          "self-hosted"
+        ],
+        "created": "2025-01-28T08:00:00.000Z",
+        "type": "link",
+        "important": true,
+        "note": "",
+        "highlights": []
+      },
+      {
+        "id": 10607,
+        "title": "Vaultwarden \u2014 Bitwarden in Rust",
+        "link": "https://github.com/dani-garcia/vaultwarden",
+        "excerpt": "Lightweight Bitwarden-compatible server written in Rust. Runs on minimal hardware with full client compatibility.",
+        "domain": "github.com",
+        "cover": "",
+        "tags": [
+          "passwords",
+          "security",
+          "self-hosted"
+        ],
+        "created": "2025-01-30T09:00:00.000Z",
+        "type": "link",
+        "important": true,
+        "note": "",
+        "highlights": []
+      },
+      {
+        "id": 10608,
+        "title": "Paperless-ngx \u2014 Document Management",
+        "link": "https://docs.paperless-ngx.com/",
+        "excerpt": "Scan, index, and archive physical documents with OCR and full-text search.",
+        "domain": "docs.paperless-ngx.com",
+        "cover": "",
+        "tags": [
+          "documents",
+          "ocr",
+          "self-hosted"
+        ],
+        "created": "2025-02-01T10:00:00.000Z",
+        "type": "link",
+        "important": false,
+        "note": "",
+        "highlights": []
+      },
+      {
+        "id": 10609,
+        "title": "Nextcloud \u2014 Self-Hosted Cloud",
+        "link": "https://nextcloud.com/",
+        "excerpt": "Self-hosted productivity platform with file sync, calendars, contacts, and office suite. Full Google Workspace alternative.",
+        "domain": "nextcloud.com",
+        "cover": "",
+        "tags": [
+          "cloud",
+          "files",
+          "productivity"
+        ],
+        "created": "2025-02-03T11:00:00.000Z",
+        "type": "link",
+        "important": false,
+        "note": "",
+        "highlights": []
+      },
+      {
+        "id": 10610,
+        "title": "Homepage \u2014 Dashboard for Homelab",
+        "link": "https://gethomepage.dev/",
+        "excerpt": "Modern application dashboard with integrations for 100+ services. Widget-based YAML config.",
+        "domain": "gethomepage.dev",
+        "cover": "",
+        "tags": [
+          "dashboard",
+          "homelab",
+          "self-hosted"
+        ],
+        "created": "2025-02-05T08:00:00.000Z",
+        "type": "link",
+        "important": false,
+        "note": "",
+        "highlights": []
+      },
+      {
+        "id": 10620,
+        "title": "Traefik \u2014 Cloud Native Reverse Proxy",
+        "link": "https://traefik.io/traefik/",
+        "excerpt": "Modern reverse proxy with automatic HTTPS via Let's Encrypt. Native Docker and Kubernetes integration.",
+        "domain": "traefik.io",
+        "cover": "",
+        "tags": [
+          "reverse-proxy",
+          "docker",
+          "networking"
+        ],
+        "created": "2025-02-07T09:00:00.000Z",
+        "type": "link",
+        "important": false,
+        "note": "",
+        "highlights": []
+      },
+      {
+        "id": 10621,
+        "title": "Nginx Proxy Manager",
+        "link": "https://nginxproxymanager.com/",
+        "excerpt": "Simple web UI for managing Nginx reverse proxy hosts with free SSL via Let's Encrypt.",
+        "domain": "nginxproxymanager.com",
+        "cover": "",
+        "tags": [
+          "reverse-proxy",
+          "nginx",
+          "ssl"
+        ],
+        "created": "2025-02-09T10:00:00.000Z",
+        "type": "link",
+        "important": false,
+        "note": "",
+        "highlights": []
+      },
+      {
+        "id": 10622,
+        "title": "Wireguard \u2014 Fast VPN Tunnel",
+        "link": "https://www.wireguard.com/",
+        "excerpt": "Extremely simple yet fast modern VPN using state-of-the-art cryptography. Built into the Linux kernel.",
+        "domain": "wireguard.com",
+        "cover": "",
+        "tags": [
+          "vpn",
+          "networking",
+          "security"
+        ],
+        "created": "2025-02-11T08:00:00.000Z",
+        "type": "link",
+        "important": false,
+        "note": "",
+        "highlights": []
+      },
+      {
+        "id": 10623,
+        "title": "Tailscale \u2014 Zero Config VPN",
+        "link": "https://tailscale.com/",
+        "excerpt": "Mesh VPN built on WireGuard. Zero config, works through firewalls and NAT.",
+        "domain": "tailscale.com",
+        "cover": "",
+        "tags": [
+          "vpn",
+          "mesh",
+          "networking"
+        ],
+        "created": "2025-02-13T09:00:00.000Z",
+        "type": "link",
+        "important": false,
+        "note": "",
+        "highlights": []
+      },
+      {
+        "id": 10624,
+        "title": "Plex \u2014 Media Server",
+        "link": "https://www.plex.tv/",
+        "excerpt": "Personal media server for organizing and streaming movies, TV, music, and photos to any device.",
+        "domain": "plex.tv",
+        "cover": "",
+        "tags": [
+          "media",
+          "streaming",
+          "self-hosted"
+        ],
+        "created": "2025-02-15T10:00:00.000Z",
+        "type": "link",
+        "important": true,
+        "note": "Running 3 instances for different sources",
+        "highlights": []
+      },
+      {
+        "id": 10625,
+        "title": "Jellyfin \u2014 Free Media System",
+        "link": "https://jellyfin.org/",
+        "excerpt": "Free and open-source media server. No premium tier or tracking \u2014 volunteer-built Plex alternative.",
+        "domain": "jellyfin.org",
+        "cover": "",
+        "tags": [
+          "media",
+          "open-source",
+          "streaming"
+        ],
+        "created": "2025-02-17T08:00:00.000Z",
+        "type": "link",
+        "important": false,
+        "note": "",
+        "highlights": []
+      },
+      {
+        "id": 10626,
+        "title": "Pi-hole \u2014 Network-Wide Ad Blocking",
+        "link": "https://pi-hole.net/",
+        "excerpt": "Network-level ad and tracker blocker acting as a DNS sinkhole. Protects all devices without client software.",
+        "domain": "pi-hole.net",
+        "cover": "",
+        "tags": [
+          "dns",
+          "ad-blocking",
+          "networking"
+        ],
+        "created": "2025-02-19T09:00:00.000Z",
+        "type": "link",
+        "important": false,
+        "note": "",
+        "highlights": []
+      },
+      {
+        "id": 10627,
+        "title": "AdGuard Home \u2014 DNS Ad Blocker",
+        "link": "https://adguard.com/en/adguard-home/overview.html",
+        "excerpt": "Network-wide DNS-based ad and tracker blocker with web dashboard, parental controls, and DoH support.",
+        "domain": "adguard.com",
+        "cover": "",
+        "tags": [
+          "dns",
+          "ad-blocking",
+          "self-hosted"
+        ],
+        "created": "2025-02-21T10:00:00.000Z",
+        "type": "link",
+        "important": false,
+        "note": "",
+        "highlights": []
+      },
+      {
+        "id": 10628,
+        "title": "Authentik \u2014 Identity Provider",
+        "link": "https://goauthentik.io/",
+        "excerpt": "Open-source identity provider with SSO, MFA, and user management. Supports SAML, OAuth2, LDAP, and SCIM.",
+        "domain": "goauthentik.io",
+        "cover": "",
+        "tags": [
+          "auth",
+          "sso",
+          "identity"
+        ],
+        "created": "2025-02-23T08:00:00.000Z",
+        "type": "link",
+        "important": false,
+        "note": "",
+        "highlights": []
+      },
+      {
+        "id": 10629,
+        "title": "Dockge \u2014 Docker Compose Manager",
+        "link": "https://github.com/louislam/dockge",
+        "excerpt": "Self-hosted Docker Compose manager with a reactive web UI. From the creator of Uptime Kuma.",
+        "domain": "github.com",
+        "cover": "",
+        "tags": [
+          "docker",
+          "compose",
+          "management"
+        ],
+        "created": "2025-02-25T09:00:00.000Z",
+        "type": "link",
+        "important": false,
+        "note": "From the Uptime Kuma creator",
+        "highlights": []
+      },
+      {
+        "id": 10630,
+        "title": "TechnoTim \u2014 Homelab YouTube",
+        "link": "https://www.youtube.com/@TechnoTim",
+        "excerpt": "Homelab and self-hosting YouTube channel covering Proxmox, Docker, Kubernetes, and infrastructure automation.",
+        "domain": "youtube.com",
+        "cover": "",
+        "tags": [
+          "youtube",
+          "homelab",
+          "tutorials"
+        ],
+        "created": "2025-02-27T10:00:00.000Z",
+        "type": "link",
+        "important": false,
+        "note": "",
+        "highlights": []
+      },
+      {
+        "id": 10631,
+        "title": "r/homelab \u2014 Reddit Community",
+        "link": "https://www.reddit.com/r/homelab/",
+        "excerpt": "Reddit community for homelab enthusiasts sharing rack setups, hardware deals, and self-hosted service recommendations.",
+        "domain": "reddit.com",
+        "cover": "",
+        "tags": [
+          "community",
+          "reddit",
+          "homelab"
+        ],
+        "created": "2025-03-01T08:00:00.000Z",
+        "type": "link",
+        "important": false,
+        "note": "",
+        "highlights": []
+      }
+    ]
+  },
+  {
+    "id": 1071,
+    "title": "Proxmox & Docker",
+    "parent_id": 1007,
+    "count": 3,
+    "color": "#10b981",
+    "bookmarks": [
+      {
+        "id": 10611,
+        "title": "Proxmox VE Documentation",
+        "link": "https://pve.proxmox.com/pve-docs/",
+        "excerpt": "Official documentation for Proxmox Virtual Environment covering installation, clustering, VM and container management, storage, and networking.",
+        "domain": "pve.proxmox.com",
+        "cover": "",
+        "tags": [
+          "proxmox",
+          "virtualization",
+          "reference"
+        ],
+        "created": "2025-02-01T09:00:00.000Z",
+        "type": "link",
+        "important": true,
+        "note": "",
+        "highlights": []
+      },
+      {
+        "id": 10612,
+        "title": "Docker Docs \u2014 Container Platform",
+        "link": "https://docs.docker.com/",
+        "excerpt": "Official Docker documentation covering container building, Compose files, networking, volumes, and multi-container application deployment.",
+        "domain": "docs.docker.com",
+        "cover": "",
+        "tags": [
+          "docker",
+          "containers",
+          "reference"
+        ],
+        "created": "2025-02-08T13:00:00.000Z",
+        "type": "link",
+        "important": true,
+        "note": "",
+        "highlights": []
+      },
+      {
+        "id": 10613,
+        "title": "Ansible Documentation",
+        "link": "https://docs.ansible.com/ansible/latest/index.html",
+        "excerpt": "Official Ansible docs covering playbooks, roles, modules, and inventory management for IT automation and configuration management.",
+        "domain": "docs.ansible.com",
+        "cover": "",
+        "tags": [
+          "ansible",
+          "automation",
+          "reference"
+        ],
+        "created": "2025-02-15T11:00:00.000Z",
+        "type": "link",
+        "important": false,
+        "note": "",
+        "highlights": []
+      }
+    ]
+  },
+  {
+    "id": 1072,
+    "title": "Monitoring & Networking",
+    "parent_id": 1007,
+    "count": 3,
+    "color": "#10b981",
+    "bookmarks": [
+      {
+        "id": 10614,
+        "title": "Uptime Kuma \u2014 Self-Hosted Monitoring",
+        "link": "https://github.com/louislam/uptime-kuma",
+        "excerpt": "Self-hosted monitoring tool supporting HTTP(s), TCP, Ping, DNS, and more. Clean UI with notifications via Slack, Telegram, email, and 90+ integrations.",
+        "domain": "github.com",
+        "cover": "",
+        "tags": [
+          "monitoring",
+          "uptime",
+          "self-hosted"
+        ],
+        "created": "2025-02-20T10:00:00.000Z",
+        "type": "link",
+        "important": false,
+        "note": "",
+        "highlights": []
+      },
+      {
+        "id": 10615,
+        "title": "UniFi \u2014 Ubiquiti Network Management",
+        "link": "https://ui.com/consoles",
+        "excerpt": "Ubiquiti's enterprise-grade networking platform for managing switches, access points, security gateways, and cameras through a unified controller.",
+        "domain": "ui.com",
+        "cover": "",
+        "tags": [
+          "unifi",
+          "networking",
+          "management"
+        ],
+        "created": "2025-02-25T09:00:00.000Z",
+        "type": "link",
+        "important": false,
+        "note": "",
+        "highlights": []
+      },
+      {
+        "id": 10616,
+        "title": "Grafana \u2014 Observability Dashboard",
+        "link": "https://grafana.com/",
+        "excerpt": "Open-source analytics and monitoring platform. Create dashboards from Prometheus, InfluxDB, Loki, and dozens of other data sources.",
+        "domain": "grafana.com",
+        "cover": "",
+        "tags": [
+          "monitoring",
+          "dashboards",
+          "observability"
+        ],
+        "created": "2025-03-01T10:00:00.000Z",
+        "type": "link",
+        "important": false,
+        "note": "",
+        "highlights": []
+      }
+    ]
+  }
+]

@@ -30,6 +30,7 @@ RAINDROP_TOKEN = os.environ.get("RAINDROP_TOKEN", "")
 CACHE_TTL = int(os.environ.get("CACHE_TTL", 3600))  # seconds, default 1 hour
 DASHBOARD_PASSWORD = os.environ.get("DASHBOARD_PASSWORD", "")
 READONLY_PASSWORD = os.environ.get("READONLY_PASSWORD", "")
+DEMO_MODE = os.environ.get("DEMO_MODE", "").lower() in ("1", "true", "yes")
 API_BASE = "https://api.raindrop.io/rest/v1"
 REDIS_URL = os.environ.get("REDIS_URL", "redis://redis:6379/0")
 CACHE_KEY = "raindrop_data"
@@ -49,7 +50,9 @@ except Exception as e:
     logger.warning("Redis unavailable (%s) — using in-memory cache", _redis_error)
 
 # --- Startup validation ---
-if not RAINDROP_TOKEN:
+if DEMO_MODE:
+    logger.info("DEMO MODE enabled — serving fixture data from demo_data.json")
+elif not RAINDROP_TOKEN:
     logger.error("RAINDROP_TOKEN is not set — bookmarks will not load")
 else:
     logger.info("RAINDROP_TOKEN configured (len=%d)", len(RAINDROP_TOKEN))
@@ -129,6 +132,13 @@ def _do_revalidate():
             _revalidating = False
 
 
+def _load_demo_data():
+    """Load fixture bookmark data from demo_data.json."""
+    demo_path = os.path.join(os.path.dirname(__file__), "data", "demo_data.json")
+    with open(demo_path) as f:
+        return json.load(f)
+
+
 def headers():
     return {"Authorization": f"Bearer {RAINDROP_TOKEN}"}
 
@@ -171,6 +181,9 @@ def fetch_all():
     """Return cached data immediately (stale-while-revalidate).
     If cache is stale, serve old data and kick off a background refresh.
     If cache is empty (cold start), block synchronously."""
+    if DEMO_MODE:
+        return _load_demo_data()
+
     global _revalidating
     data, age = _cache_get_with_age()
 
@@ -330,9 +343,21 @@ def index():
 @app.route("/api/status")
 def api_status():
     """Return configuration health for frontend validation."""
+    if DEMO_MODE:
+        return jsonify({
+            "ok": True,
+            "demo_mode": True,
+            "token_set": True,
+            "redis_connected": False,
+            "redis_error": None,
+            "cache_ttl": CACHE_TTL,
+            "cache_age": 0,
+            "cache_populated": True,
+        })
     data, age = _cache_get_with_age()
     return jsonify({
         "ok": True,
+        "demo_mode": False,
         "token_set": bool(RAINDROP_TOKEN),
         "redis_connected": _redis is not None,
         "redis_error": _redis_error,
@@ -359,6 +384,8 @@ def api_refresh():
     guard = _require_admin()
     if guard:
         return guard
+    if DEMO_MODE:
+        return jsonify({"ok": True, "collections": _load_demo_data()})
     _cache_bust()
     try:
         data = fetch_all()
@@ -375,6 +402,8 @@ def api_add():
     guard = _require_admin()
     if guard:
         return guard
+    if DEMO_MODE:
+        return jsonify({"ok": False, "error": "Demo mode — changes are not saved"}), 403
     body = request.get_json(silent=True) or {}
     link = (body.get("link") or "").strip()
     if not link:
@@ -423,6 +452,8 @@ def api_remove(raindrop_id):
     guard = _require_admin()
     if guard:
         return guard
+    if DEMO_MODE:
+        return jsonify({"ok": False, "error": "Demo mode — changes are not saved"}), 403
     r = requests.delete(
         f"{API_BASE}/raindrop/{raindrop_id}",
         headers=headers(),
@@ -442,6 +473,8 @@ def api_edit(raindrop_id):
     guard = _require_admin()
     if guard:
         return guard
+    if DEMO_MODE:
+        return jsonify({"ok": False, "error": "Demo mode — changes are not saved"}), 403
     body = request.get_json(silent=True) or {}
     payload = {}
     title = (body.get("title") or "").strip()

@@ -6,7 +6,9 @@ A self-hosted bookmark dashboard powered by your Raindrop.io account. Browse, se
 
 The official Raindrop.io browser extension only works on desktop browsers. On **mobile Chrome** (Android) and other mobile browsers that don't support extensions, you lose quick access to your bookmarks unless you use the Raindrop mobile app.
 
-This dashboard is a lightweight alternative to the Raindrop mobile app. Self-hosting it gives you:
+This dashboard is a lightweight companion to Raindrop.io — not a replacement. **You keep using Raindrop.io exactly as you do today.** The desktop extension, the mobile app, the web app at app.raindrop.io — all of it continues to work. Any bookmark you save, edit, tag, or delete through any Raindrop client (including this dashboard) is immediately reflected everywhere else, because everything reads and writes the same Raindrop.io account via their API in real time.
+
+What this adds on top of that is a self-hosted, browser-accessible front end that works everywhere the Raindrop apps and extensions don't — particularly mobile browsers. Self-hosting it gives you:
 
 - **No app install required** — works as a regular web page in any mobile or desktop browser
 - **Add to home screen** — pin it as a shortcut that opens full-screen with no browser chrome (iOS Safari natively; Android Chrome via the included PWA manifest)
@@ -62,12 +64,13 @@ Once added, the icon opens the dashboard full-screen with no browser address bar
 ## Environment Variables
 | Variable | Default | Description |
 |---|---|---|
-| `RAINDROP_TOKEN` | *(required)* | Raindrop.io API test token |
+| `RAINDROP_TOKEN` | *(required)* | Raindrop.io API test token. Not required when `DEMO_MODE=true` |
 | `CACHE_TTL` | `3600` | Seconds to cache bookmarks before re-fetching (1 hour) |
 | `PORT` | `8080` | Port the server listens on |
 | `DASHBOARD_PASSWORD` | *(unset — auth disabled)* | Password to protect the dashboard. Leave unset to disable auth entirely |
 | `READONLY_PASSWORD` | *(unset)* | Optional second password granting read-only access (browse/filter only — no add/edit/delete) |
 | `SECRET_KEY` | *(no default — required when auth is enabled)* | Signs session cookies. Required when using `DASHBOARD_PASSWORD` — without it every container restart logs everyone out |
+| `DEMO_MODE` | *(unset — disabled)* | Set to `true` to serve sample bookmarks instead of fetching from Raindrop. No token required. Add/edit/delete are disabled |
 
 ### Authentication
 

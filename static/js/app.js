@@ -210,14 +210,19 @@ function renderSidebar() {
   });
   const tags = Object.keys(tagMap).sort();
   if (tags.length) {
-    html +=
-      '<div class="sidebar-label" style="margin-top:8px">Tags</div>';
-    tags.forEach((t) => {
-      html += `<div class="coll-item sidebar-tag${activeTag === t ? " active" : ""}" data-tag="${esc(t)}">
+    const TAG_LIMIT = 12;
+    const collapsed = tags.length > TAG_LIMIT;
+    html += '<div class="sidebar-label" style="margin-top:8px">Tags</div>';
+    tags.forEach((t, i) => {
+      const hidden = collapsed && i >= TAG_LIMIT ? ' data-tag-extra="1" style="display:none"' : '';
+      html += `<div class="coll-item sidebar-tag${activeTag === t ? " active" : ""}" data-tag="${esc(t)}"${hidden}>
     <span class="coll-name">#${esc(t)}</span>
     <span class="coll-count">${tagMap[t]}</span>
   </div>`;
     });
+    if (collapsed) {
+      html += `<button class="tags-toggle-btn" onclick="toggleExtraTags(this)">Show ${tags.length - TAG_LIMIT} more tags</button>`;
+    }
   }
 
   document.getElementById("sidebarCollections").innerHTML = html;
@@ -347,6 +352,16 @@ function clearTagFilter() {
   document.getElementById("tagFilterBar").classList.remove("visible");
   renderSidebar();
   renderMain();
+}
+
+function toggleExtraTags(btn) {
+  const container = btn.parentElement;
+  const extras = container.querySelectorAll('[data-tag-extra="1"]');
+  const expanded = btn.dataset.expanded === "1";
+  extras.forEach((el) => { el.style.display = expanded ? "none" : ""; });
+  btn.dataset.expanded = expanded ? "" : "1";
+  const hidden = container.querySelectorAll('[data-tag-extra="1"]').length;
+  btn.textContent = expanded ? `Show ${hidden} more tags` : "Show fewer tags";
 }
 
 function updateStats() {
