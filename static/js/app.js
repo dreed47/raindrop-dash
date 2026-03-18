@@ -4,6 +4,19 @@ let activeCollection = null;
 let activeTag = null;
 let activeFavorites = false;
 let expandedCollections = new Set();
+
+// Per-collection sort orders, persisted to localStorage
+let collectionSortOrders = {};
+try {
+  collectionSortOrders = JSON.parse(localStorage.getItem("sortOrders") || "{}");
+} catch (_) { collectionSortOrders = {}; }
+const SORT_MODES = ["default", "title-asc", "date-desc", "date-asc"];
+const SORT_LABELS = {
+  "default":   "Default",
+  "title-asc":  "A\u2192Z",
+  "date-desc":  "Newest",
+  "date-asc":   "Oldest",
+};
 const COLORS = [
   "#58a6ff",
   "#f0883e",
@@ -64,6 +77,19 @@ function toggleChildren(id) {
     expandedCollections.add(id);
   }
   renderSidebar();
+}
+
+function cycleSortOrder(collId) {
+  const key = String(collId);
+  const cur = collectionSortOrders[key] || "default";
+  const next = SORT_MODES[(SORT_MODES.indexOf(cur) + 1) % SORT_MODES.length];
+  if (next === "default") {
+    delete collectionSortOrders[key];
+  } else {
+    collectionSortOrders[key] = next;
+  }
+  localStorage.setItem("sortOrders", JSON.stringify(collectionSortOrders));
+  renderMain();
 }
 
 function renderCollItem(node, depth, colorIdx) {
@@ -227,9 +253,19 @@ function renderMain() {
       );
     }
     if (!bms.length) return;
+    // Apply per-collection sort
+    const sortKey = collectionSortOrders[String(coll.id)] || "default";
+    if (sortKey === "title-asc") {
+      bms = [...bms].sort((a, b) => a.title.localeCompare(b.title));
+    } else if (sortKey === "date-desc") {
+      bms = [...bms].sort((a, b) => new Date(b.created) - new Date(a.created));
+    } else if (sortKey === "date-asc") {
+      bms = [...bms].sort((a, b) => new Date(a.created) - new Date(b.created));
+    }
     total += bms.length;
+    const sortLabel = SORT_LABELS[sortKey];
     html += `<div class="collection-group" id="coll-${coll.id}">
-  <div class="collection-title">${esc(coll.title)} <span class="count">${bms.length}</span></div>
+  <div class="collection-title">${esc(coll.title)} <span class="count">${bms.length}</span><button class="sort-btn${sortKey !== 'default' ? ' active' : ''}" onclick="cycleSortOrder(${coll.id})" title="Sort: ${sortLabel}">${sortLabel}</button></div>
   <div class="bookmarks-grid">`;
     bms.forEach((b) => {
       const favicon = `https://www.google.com/s2/favicons?domain=${encodeURIComponent(b.domain)}&sz=32`;

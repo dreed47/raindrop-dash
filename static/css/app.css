@@ -294,6 +294,33 @@ body {
   font-weight: 400;
 }
 
+.sort-btn {
+  margin-left: auto;
+  font-size: 0.72rem;
+  font-weight: 500;
+  padding: 2px 8px;
+  border-radius: 4px;
+  border: 1px solid var(--border);
+  background: transparent;
+  color: var(--text-muted);
+  cursor: pointer;
+  transition: color 0.15s, border-color 0.15s, background 0.15s;
+  font-family: var(--mono);
+  letter-spacing: 0.02em;
+  flex-shrink: 0;
+}
+
+.sort-btn:hover {
+  border-color: var(--accent);
+  color: var(--accent);
+}
+
+.sort-btn.active {
+  border-color: var(--accent);
+  color: var(--accent);
+  background: var(--accent-dim);
+}
+
 /* --- Bookmark Cards --- */
 .bookmarks-grid {
   display: grid;
